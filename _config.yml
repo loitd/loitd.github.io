@@ -41,8 +41,7 @@ google_analytics: G-QMCFS2SQPY
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: 
-#oraerr.com
+url: oraerr.com
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
@@ -86,7 +85,8 @@ exclude:
   - README.md
   - CNAME
 
-# Added by Loitd
+# Added by Loitd. This collection cheatsheets tell Jekyll to allow parsing files from _cheatsheets folder
 collections:
   cheatsheets:
     output: true
+    permalink: /:collection/:path/
