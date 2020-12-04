@@ -84,3 +84,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+
+  # Added by Loitd
+  collections:
+    cheatsheets:
+      output: true
