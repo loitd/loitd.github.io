@@ -41,6 +41,7 @@ layout: default
 Since I want users to navigate to the new post type `cheatsheet` using `/cheatsheets/` url, I will create a new file named `cheatsheets.html` at the root of the project. Fill the file with the following content:  
 
 ```
+{% raw %}
 ---
 layout: default
 ---
@@ -59,6 +60,7 @@ layout: default
     </article>
   {% endfor %}
 </div>
+{% endraw %}
 ```
 
 ## Step 4: Create new cheatsheet files inside _cheatsheets folder
@@ -69,8 +71,7 @@ Now we will create a new *cheatsheet* file inside the created `_cheatsheets` fol
 layout: cheatsheet
 title: Markdown Cheatsheet
 ---
-
-This is a complete Markdown cheatsheet. Press Control+F to speedup your findings.
+This is a complete cheatsheet
 ```
 
 ## Step 5: Modify project configuration
