@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: cheatsheet
 title: Markdown Cheatsheet
 ---
 
