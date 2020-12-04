@@ -9,7 +9,7 @@ This is a complete Markdown cheatsheet. Press Control+F to speedup your findings
 Use number signs to define headings. Number of number sign defines the level of the heading.
 
 | Markdown      |   Meaning     |
-|-------------- | -------------:|
+|---------------|---------------|
 | `# H1`           | Heading 1     |
 | `## H2`          | Heading 2     |
 | `### H3`         | Heading 3     |
