@@ -1,8 +1,6 @@
 ---
 layout: post
-title: Hello world for a long time!
+title: Markdown Cheatsheet
 ---
 
-It has been quite long time since my last online on the internet. Nice to meet you all, once again.
-
-I hope we will have so much happy time together.
+This is a complete Markdown cheatsheet.
