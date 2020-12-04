@@ -85,7 +85,8 @@ exclude:
   - README.md
   - CNAME
 
-# Added by Loitd. This collection cheatsheets tell Jekyll to allow parsing files from _cheatsheets folder
+# Added by Loitd. This collection cheatsheets tell Jekyll to allow parsing files 
+# from _cheatsheets folder. Refer to https://jekyllrb.com/docs/permalinks/#collections for more
 collections:
   cheatsheets:
     output: true
