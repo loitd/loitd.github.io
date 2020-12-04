@@ -32,7 +32,7 @@ You can use underscore(s) but it is not the best practices.
 Use:  
 - Put greater sign (>) at the begining of a paragraph to create a blockquotes  
 - Use backtick {% raw %}`code`{% endraw %} to put words inside code  
-- Use triple backticks {% raw %}```pre```{% endraw %} to create a pre block  
+- Use triple backticks {% raw %}```{% endraw %}pre{% raw %}```{% endraw %} to create a pre block  
 
 
 
