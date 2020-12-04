@@ -7,7 +7,9 @@ In Jekyll, `posts` inside `_posts` folder belong to a special *post* type and be
 
 In this tutorial, I will create a new type called *cheatsheets* step-by-step from ground up. Before we begin, here is the layout of the final project:  
 
+{:refdef: style="text-align: center;"}
 ![Jekyll Project Directory Layout]({{ site.baseurl }}/images/20201204/jekyll-project-directory-tree.png)
+{: refdef}
 
 ## Step 1: Create a new folder
 As I need to create a new post type named `cheatsheets`, I will create a new folder named `_cheatsheets` in the root folder, at the same directory level with `_posts`.
@@ -15,7 +17,7 @@ As I need to create a new post type named `cheatsheets`, I will create a new fol
 ## Step 2: Create a cheatsheet layout
 Create a file named `cheatsheet.html` inside `_layouts` folder with below content:  
 
-```
+``
 {% raw %}
 ---
 layout: default
@@ -35,7 +37,7 @@ layout: default
   {% include disqus.html %}
 </article>
 {% endraw %}
-```
+``
 
 ## Step 3: Create a html file to handle the url
 Since I want users to navigate to the new post type `cheatsheet` using `/cheatsheets/` url, I will create a new file named `cheatsheets.html` at the root of the project. Fill the file with the following content:  
