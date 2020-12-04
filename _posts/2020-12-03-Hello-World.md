@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Hello world for a long time!
+comments: false
 ---
 
 It has been quite long time since my last online on the internet. Nice to meet you all, once again.
