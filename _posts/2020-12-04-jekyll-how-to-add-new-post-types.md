@@ -16,6 +16,7 @@ As I need to create a new post type named `cheatsheets`, I will create a new fol
 Create a file named `cheatsheet.html` inside `_layouts` folder with below content:  
 
 ```
+{% raw %}
 ---
 layout: default
 ---
@@ -33,6 +34,7 @@ layout: default
 
   {% include disqus.html %}
 </article>
+{% endraw %}
 ```
 
 ## Step 3: Create a html file to handle the url
