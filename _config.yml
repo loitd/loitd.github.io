@@ -85,7 +85,7 @@ exclude:
   - README.md
   - CNAME
 
-  # Added by Loitd
-  collections:
-    cheatsheets:
-      output: true
+# Added by Loitd
+collections:
+  cheatsheets:
+    output: true
