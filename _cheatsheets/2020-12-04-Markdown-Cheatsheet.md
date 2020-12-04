@@ -20,3 +20,19 @@ Add two or more space at the end of the line for line breaker (br)
 > First line (space)(space)  
 > Second line
 
+## Bold & Italic
+Use:
+- 01 asterisk to italicize words  
+- 02 asterisks to bold words  
+- 03 asterisks to bold and italicize words at the same time  
+
+You can use underscore(s) but it is not the best practices.
+
+## Blockquotes, code and pre
+Use:  
+- Put greater sign (>) at the begining of a paragraph to create a blockquotes  
+- Use backtick {% raw %}`code`{% endraw %} to put words inside code  
+- Use triple backticks {% raw %}```pre```{% endraw %} to create a pre block  
+
+
+
