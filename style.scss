@@ -287,3 +287,20 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "svg-icons";
+
+// Additional by Loitd
+table {
+  border: 1px solid gray;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid gray;
+  padding: 1rem;
+}
+
+th {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+}
