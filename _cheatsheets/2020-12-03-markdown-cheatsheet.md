@@ -80,7 +80,7 @@ Result
 I am <span style="color:red"> the **RED** text</span>
 
 ## Tables
-By default, tables in markdown are left aligned.
+By default, tables in markdown are left aligned. You can control the column alignment using colons (:) putting at the head of the column.
 
 ![Markdown Tables]({{ site.baseurl }}/images/20201207/markdown-tables.png)
 
@@ -94,7 +94,7 @@ Result
 
 ## Images and Links
 
-![Markdown Images](http://oraerr.com/images/20201207/markdown-colors.png "The markdown colors")
+![Markdown Images](http://oraerr.com/images/20201207/markdown-images.png "The markdown colors")
 
 Result
 
