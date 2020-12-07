@@ -5,7 +5,7 @@ title: Markdown Cheatsheet
 
 This is a complete Markdown cheatsheet. Press Control+F to speedup your findings.
 
-## Heading {Heading}
+## Heading {#Heading}
 Use number signs to define headings. Number of number sign defines the level of the heading.
 
 | Markdown      |   Meaning     |
@@ -13,9 +13,9 @@ Use number signs to define headings. Number of number sign defines the level of 
 | `# H1`           | Heading 1     |
 | `## H2`          | Heading 2     |
 | `### H3`         | Heading 3     |
-| `# H1 {heading-id} | Heading with custom heading ID to call later |
+| `# H1 {#heading-id}` | Heading with custom heading ID to call later (bookmark) |
 
-## Line Breaks {LineBreaks}
+## Line Breaks {#LineBreaks}
 Add two or more space at the end of the line for line breaker (br)
 
 ```
@@ -23,7 +23,7 @@ First line (space)(space)
 Second line
 ```
 
-## Bold & Italic {BI}
+## Bold & Italic {#BI}
 Use:
 - 01 asterisk to *italicize* words  
 - 02 asterisks to **bold** words  
@@ -31,7 +31,7 @@ Use:
 
 You can use underscore(s) but it is not the best practices.
 
-## Blockquotes, Code and Pre {BCP} 
+## Blockquotes, Code and Pre {#BCP} 
 Use:  
 - Put greater sign (>) at the begining of a paragraph to create a blockquotes  
 
@@ -75,7 +75,7 @@ def func2():
     do_it()
 ```  
 
-## Colors {Colors}
+## Colors {#Colors}
 Markdown doesn't support color, we need to use inline HTML inside markdown.
 
 ![Markdown Colors]({{ site.baseurl }}/images/20201207/markdown-colors.png)
@@ -84,7 +84,7 @@ Result
 
 I am <span style="color:red"> the **RED** text</span>
 
-## Tables {Tables}
+## Tables {#Tables}
 By default, tables in markdown are left aligned. You can control the column alignment using colons (:) putting at the head of the column.
 
 ![Markdown Tables]({{ site.baseurl }}/images/20201207/markdown-tables.png)
@@ -97,7 +97,7 @@ Result
 | Col1                | col2                 | col3                     |
 | `hey`               | 100                  | $150                     |
 
-## Images and Links {Images-Links}
+## Images and Links {#ImagesLinks}
 
 Images with title
 
@@ -115,7 +115,7 @@ Result (hover the link to see the text appears)
 
 [This is a link]({{ site.baseurl }}/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
 
-## Horizontal lines {Horizontal}
+## Horizontal lines {#Horizontal}
 To draw a horizontal line in markdown we can use:
 - 03 hyphens (-)
 - 03 asterisks (*)
@@ -127,7 +127,7 @@ Result
 ***
 ___
 
-## List {List}
+## List {#List}
 ### Ordered list  
 
 ![Markdown Ordered List]({{ site.baseurl }}/images/20201207/markdown-ordered-list.png)
@@ -154,7 +154,7 @@ Result
     * Sub-item
 + Item
 
-## Footnote {Footnote}
+## Footnote {#Footnote}
 
 I will add a footnote[^1] in this sentence[^thecode].
 
