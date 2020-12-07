@@ -22,9 +22,9 @@ Add two or more space at the end of the line for line breaker (br)
 
 ## Bold & Italic
 Use:
-- 01 asterisk to italicize words  
-- 02 asterisks to bold words  
-- 03 asterisks to bold and italicize words at the same time  
+- 01 asterisk to *italicize* words  
+- 02 asterisks to **bold** words  
+- 03 asterisks to ***bold and italicize*** words at the same time  
 
 You can use underscore(s) but it is not the best practices.
 
@@ -37,6 +37,11 @@ Use:
 This is `inline code`
 
 - Use triple backticks to create a pre block  
+
+![Markdown Python pre block]({{ site.baseurl }}/images/20201207/markdown-python-pre-block.png)
+
+Result
+
 ```python
 # A block of Python code -> Python syntax highlighting
 def func1():
@@ -51,3 +56,4 @@ def func2():
     do_it()
 ```  
 
+## Colors
