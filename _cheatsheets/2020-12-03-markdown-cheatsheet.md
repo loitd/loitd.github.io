@@ -42,7 +42,9 @@ Use:
 Use:  
 - Put greater sign (>) at the begining of a paragraph to create a blockquotes  
 
-![Markdown blockquotes]({{ site.baseurl }}/images/20201207/markdown-blockquotes.png)  
+```
+> This is a blockquotes 
+```
 
 Result
 
@@ -50,7 +52,9 @@ Result
 
 - Use single backtick to put words inside inline code  
 
-![Markdown inline code]({{ site.baseurl }}/images/20201207/markdown-inline-code.png)  
+```
+This is `inline code`
+```
 
 Result
 
@@ -58,7 +62,14 @@ This is `inline code`
 
 - Use triple backticks to create a pre block  
 
-![Markdown pre block]({{ site.baseurl }}/images/20201207/markdown-pre-block.png)
+```
+```
+# No language indicated -> no syntax highlighting
+def func1():
+'''Function 1'''
+    do_it()
+```  
+```
 
 Result
 
@@ -85,7 +96,9 @@ def func2():
 ## Colors {#Colors}
 Markdown doesn't support color, we need to use inline HTML inside markdown.
 
-![Markdown Colors]({{ site.baseurl }}/images/20201207/markdown-colors.png)
+```
+I am <span style="color:red"> the **RED** text</span>
+```
 
 Result
 
@@ -239,13 +252,13 @@ Result
 In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in front of the literal character.
 
 ```  
-* Will be a list item
+* Will be a list item  
 \* Will not be converted to an unordered list item
 ```  
 
 Result
 
-* Will be a list item
+* Will be a list item  
 \* Will not be converted to an unordered list item
 
 ---
