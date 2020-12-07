@@ -181,8 +181,8 @@ I will add a footnote [^1] in this sentence[^thecode].
 ## Task Lists (#Task)
 
 ```
-\- [x] I've done this  
-\- [ ] Note done yet  
+- [x] I've done this  
+- [ ] Note done yet  
 ```
 
 Result
@@ -193,17 +193,12 @@ Result
 ## Escaping Characters
 In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in front of the literal character.
 
-\\\```python  
-def f1():  
-    hey()  
-\\\```  
+```  
+\* Will not be converted to an unordered list item
+```  
 
 Result
 
-\```python  
-def f1():  
-    hey()  
-\```  
-
+\* Will not be converted to an unordered list item
 
 ---
