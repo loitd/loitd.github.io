@@ -38,7 +38,7 @@ This is `inline code`
 
 - Use triple backticks to create a pre block  
 
-![Markdown Python pre block]({{ site.baseurl }}/images/20201207/markdown-python-pre-block.png)
+![Markdown pre block]({{ site.baseurl }}/images/20201207/markdown-pre-block.png)
 
 Result
 
