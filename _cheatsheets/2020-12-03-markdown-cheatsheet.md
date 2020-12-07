@@ -11,7 +11,7 @@ This is a complete Markdown cheatsheet. Press Control+F to speedup your findings
 |---------------------|--------------------------|------------------------------------|---------------------------------|
 | [Headings](#Headings) | [Line Breaks](#LineBreaks) | [Bold, Italic & Strikethrough](#BIS) | [Blockquotes, Code and Pre](#BCP) |
 | [Colors](#Colors) | [Tables](#Tables)|[Images and Links](#ImagesLinks)|[Horizontal Lines](#Horizontal)|
-| [Lists](#Lists) | [Footnotes](#Footnotes)|[Task Lists](#Task)|[Escaping Characters](#Escape)|
+| [Lists](#Lists) | [Footnotes](#Footnotes)|[Task Lists](#Task)|[Escaping Characters](#Esc)|
 
 ## Headings {#Headings}
 Use number signs to define headings. Number of number sign defines the level of the heading.
@@ -111,7 +111,7 @@ Result
 | `hey`               | 100                  | $150                     |
 
 * Please have at least 3 dashes between each table header
-* Put at least 1 space between the content of the column and separate sign (|)
+* Put at least 1 space between the content of the column and separate sign (pipes)
 
 ## Images and Links {#ImagesLinks}
 
@@ -173,7 +173,18 @@ Result
 ## Footnotes {#Footnotes}
 Please noted that the footnotes will be put at the end of the page automatically.
 
-![Markdown Footnotes]({{ site.baseurl }}/images/20201207/markdown-footnotes.png)
+```
+I will add a footnote [^1] in this sentence[^thecode].
+
+[^1]: This is the footnote  
+[^thecode]: Wow, i think this gonna be a long code.  
+    You need to indent the text to include them into the footnote
+    ```python
+    def f1():
+        hey()
+    ```
+    End of the long code here
+```
 
 Result
 
@@ -200,16 +211,17 @@ Result
 - [x] I've done this
 - [ ] Note done yet
 
-## Escaping Characters (#Escape)
+## Escaping Characters (#Esc)
 In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in front of the literal character.
 
 ```  
-\* Will not be converted to an unordered list item
 * Will be a list item
+\* Will not be converted to an unordered list item
 ```  
 
 Result
 
-\* Will not be converted to an unordered list item
 * Will be a list item
+\* Will not be converted to an unordered list item
+
 ---
