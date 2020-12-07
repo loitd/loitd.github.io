@@ -180,8 +180,10 @@ I will add a footnote [^1] in this sentence[^thecode].
 
 ## Task Lists (#Task)
 
+```
 \- [x] I've done this  
 \- [ ] Note done yet  
+```
 
 Result
 
