@@ -94,7 +94,13 @@ I am <span style="color:red"> the **RED** text</span>
 ## Tables {#Tables}
 By default, tables in markdown are left aligned. You can control the column alignment using colons (:) putting at the head of the column.
 
-![Markdown Tables]({{ site.baseurl }}/images/20201207/markdown-tables.png)
+```
+|   Column default    |   Column centered    |  Column Right-aligned    |
+|---------------------|:--------------------:|-------------------------:|
+|   I am left aligned | I am centered        |  I am right-aligned      |
+| Col1                | col2                 | col3                     |
+| `hey`               | 100                  | $150                     |
+```
 
 Result
 
@@ -103,6 +109,9 @@ Result
 |   I am left aligned | I am centered        |  I am right-aligned      |
 | Col1                | col2                 | col3                     |
 | `hey`               | 100                  | $150                     |
+
+* Please have at least 3 dashes between each table header
+* Put at least 1 space between the content of the column and separate sign (|)
 
 ## Images and Links {#ImagesLinks}
 
