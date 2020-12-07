@@ -154,6 +154,7 @@ Result
 + Item
 
 ## Footnote {#Footnote}
+Please noted that the footnotes will be put at the end of the page automatically.
 
 ![Markdown Footnotes]({{ site.baseurl }}/images/20201207/markdown-footnotes.png)
 
