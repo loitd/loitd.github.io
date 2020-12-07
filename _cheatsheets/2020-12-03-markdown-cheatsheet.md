@@ -63,12 +63,12 @@ This is `inline code`
 - Use triple backticks to create a pre block  
 
 ```
-```
-# No language indicated -> no syntax highlighting
-def func1():
-'''Function 1'''
-    do_it()
-```  
+    ```
+    # No language indicated -> no syntax highlighting
+    def func1():
+    '''Function 1'''
+        do_it()
+    ```  
 ```
 
 Result
@@ -124,7 +124,7 @@ Result
 | `hey`               | 100                  | $150                     |
 
 * Please have at least 3 dashes between each table header
-* Put at least 1 space between the content of the column and separate sign (pipes)
+* Put at least 1 space between the content of the column and separate signs (pipes)
 
 ## Images and Links {#ImagesLinks}
 
