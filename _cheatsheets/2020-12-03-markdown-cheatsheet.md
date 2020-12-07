@@ -38,9 +38,16 @@ This is `inline code`
 
 - Use triple backticks to create a pre block  
 ```python
-a block of code
+# A block of Python code -> Python syntax highlighting
 def func1():
 '''Function 1'''
     do_it()
+```  
+Another pre block without syntax specified   
 ```
+# No language indicated -> no syntax highlighting
+def func2():
+'''Function 2'''
+    do_it()
+```  
 
