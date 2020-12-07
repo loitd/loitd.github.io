@@ -7,7 +7,7 @@ This is a complete Markdown cheatsheet. Press Control+F to speedup your findings
 
 ## Table of contents
 
-|     ToC             |     ToC                  |            ToC                     |         ToC                     |
+|     .               |     .                    |            .                       |         .                       |
 |---------------------|--------------------------|------------------------------------|---------------------------------|
 | [Headings](#Headings) | [Line Breaks](#LineBreaks) | [Bold, Italic & Strikethrough](#BIS) | [Blockquotes, Code and Pre](#BCP) |
 | [Colors](#Colors) | [Tables](#Tables)|[Images and Links](#ImagesLinks)|[Horizontal Lines](#Horizontal)|
@@ -82,7 +82,14 @@ def func1():
 
 Another pre block with syntax specified   
 
-![Markdown Python pre block]({{ site.baseurl }}/images/20201207/markdown-python-pre-block.png)
+```
+    ```python
+    # A block of Python code -> Python syntax highlighting
+    def func2():
+    '''Function 2'''
+        do_it()
+    ```  
+```
 
 Result
 
