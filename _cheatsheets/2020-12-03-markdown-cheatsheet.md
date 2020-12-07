@@ -78,3 +78,18 @@ Markdown doesn't support color, we need to use inline HTML inside markdown.
 Result
 
 I am <span style="color:red"> the **RED** text</span>
+
+## Tables
+By default, tables in markdown are left aligned.
+
+![Markdown Tables]({{ site.baseurl }}/images/20201207/markdown-tables.png)
+
+Result
+
+|   Column default    |   Column centered    |  Column Right-aligned    |
+|---------------------|:--------------------:|-------------------------:|
+|   I am left aligned | I am centered        |  I am right-aligned      |
+| Col1                | col2                 | col3                     |
+| `hey`               | 100                  | $150                     |
+
+
