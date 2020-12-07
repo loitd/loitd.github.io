@@ -36,11 +36,7 @@ Use:
 
 | Markdown      | Meaning       |
 |---------------|---------------|
-| Greater sign (>)          | Blockquotes   |
-| Single backtick (`)       | Code block    |
-| Triple backticks (```)    | Pre block     |
+| Greater sign (>)          | > Blockquotes   |
+| Single backtick (`)       | `Code block`    |
+| Triple backticks (```)    | ```Pre block```     |
 
-
-https://www.markdownguide.org/basic-syntax/#code
-https://www.markdownguide.org/cheat-sheet/
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables
