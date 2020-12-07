@@ -5,8 +5,8 @@ title: Markdown Cheatsheet
 
 This is a complete Markdown cheatsheet. Press Control+F to speedup your findings.
 
-## Table of content
-| | | | |
+## Table of contents
+|   |   |   |   |
 |---|---|---|---|
 |[Headings](#Headings)|[Line Breaks](#LineBreaks)|[Bold, Italic & Strikethrough](#BIS)|[Blockquotes, Code and Pre](#BCP)|
 |[Colors](#Colors)|[Tables](#Tables)|[Images and Links](#ImagesLinks)|[Horizontal Lines](#Horizontal)|
@@ -195,10 +195,11 @@ In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in fron
 
 ```  
 \* Will not be converted to an unordered list item
+* Will be a list item
 ```  
 
 Result
 
 \* Will not be converted to an unordered list item
-
+* Will be a list item
 ---
