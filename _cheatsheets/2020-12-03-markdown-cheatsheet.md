@@ -31,9 +31,17 @@ You can use underscore(s) but it is not the best practices.
 ## Blockquotes, code and pre
 Use:  
 - Put greater sign (>) at the begining of a paragraph to create a blockquotes  
+
+![Markdown blockquotes]({{ site.baseurl }}/images/20201207/markdown-blockquotes.png)  
+
+Result
+
 > This is a blockquotes  
 
 - Use single backtick to put words inside inline code  
+
+![Markdown inline code]({{ site.baseurl }}/images/20201207/markdown-inline-code.png)  
+
 This is `inline code`
 
 - Use triple backticks to create a pre block  
