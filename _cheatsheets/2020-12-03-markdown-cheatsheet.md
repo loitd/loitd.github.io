@@ -92,4 +92,10 @@ Result
 | Col1                | col2                 | col3                     |
 | `hey`               | 100                  | $150                     |
 
+## Images and Links
 
+![Markdown Images](http://oraerr.com/images/20201207/markdown-colors.png "The markdown colors")
+
+Result
+
+![alt-text](http://oraerr.com/images/20201207/markdown-colors.png "The markdown colors")
