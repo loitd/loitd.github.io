@@ -23,13 +23,12 @@ First line (space)(space)
 Second line
 ```
 
-## Bold & Italic {#BI}
+## Bold, Italic & Strikethrough {#BIS}
 Use:
 - 01 asterisk to *italicize* words  
 - 02 asterisks to **bold** words  
 - 03 asterisks to ***bold and italicize*** words at the same time  
-
-You can use underscore(s) but it is not the best practices.
+- 02 tildes to ~~strikethrough~~ text
 
 ## Blockquotes, Code and Pre {#BCP} 
 Use:  
@@ -156,7 +155,11 @@ Result
 
 ## Footnote {#Footnote}
 
-I will add a footnote[^1] in this sentence[^thecode].
+![Markdown Footnotes]({{ site.baseurl }}/images/20201207/markdown-footnotes.png)
+
+Result
+
+I will add a footnote [^1] in this sentence[^thecode].
 
 [^1]: This is the footnote  
 [^thecode]: Wow, i think this gonna be a long code.  
@@ -166,3 +169,13 @@ I will add a footnote[^1] in this sentence[^thecode].
         hey()
     ```
     End of the long code here
+
+## Task Lists
+
+![Markdown Task Lists]({{ site.baseurl }}/images/20201207/markdown-tasklist.png)
+
+Result
+
+- [x] I've done this
+- [ ] Note done yet
+
