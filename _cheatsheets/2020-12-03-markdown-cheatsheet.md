@@ -32,10 +32,12 @@ You can use underscore(s) but it is not the best practices.
 Use:  
 - Put greater sign (>) at the begining of a paragraph to create a blockquotes  
 > This is a blockquotes  
-- Use single backtick {% raw %}`{% endraw %} to put words inside inline code
+
+- Use single backtick to put words inside inline code  
 This is `inline code`
-- Use triple backticks {% raw %}```{% endraw %} to create a pre block  
-This is ```
+
+- Use triple backticks to create a pre block  
+```python
 a block of code
 ```
 
