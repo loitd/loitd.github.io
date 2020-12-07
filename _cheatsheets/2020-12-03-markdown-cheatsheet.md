@@ -36,7 +36,7 @@ Use:
 
 | Markdown      | Meaning       |
 |---------------|---------------|
-| Greater sign (>)          | > Blockquotes   |
-| Single backtick (`)       | `Code block`    |
-| Triple backticks (```)    | ```Pre block```     |
+| Greater sign           | > Blockquotes   |
+| Single backtick        | `Code block`    |
+| Triple backticks       | ```Pre block```     |
 
