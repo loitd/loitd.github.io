@@ -44,6 +44,8 @@ Result
 
 ![Markdown inline code]({{ site.baseurl }}/images/20201207/markdown-inline-code.png)  
 
+Result
+
 This is `inline code`
 
 - Use triple backticks to create a pre block  
@@ -100,7 +102,7 @@ Images with title
 
 ![Markdown Images](http://oraerr.com/images/20201207/markdown-images.png "The markdown image with title")
 
-Result
+Result (hover the image to see the text appears)
 
 ![alt-text](http://oraerr.com/images/logo.png "The markdown image with title")
 
@@ -111,3 +113,16 @@ Link with title (text on hover)
 Result
 
 [This is a link](http://oraerr.com/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
+
+## Horizontal lines
+To draw a horizontal line in markdown we can use:
+- 03 hyphens (-)
+- 03 asterisks (*)
+- 03 underscores (_)
+
+Result
+
+---
+***
+___
+
