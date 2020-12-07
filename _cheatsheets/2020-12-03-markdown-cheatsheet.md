@@ -117,7 +117,9 @@ Result
 
 Images with title
 
-![Markdown Images]({{ site.baseurl }}/images/20201207/markdown-images.png "The markdown image with title")
+```
+![alt-text]({{ site.baseurl }}/images/logo.png "The markdown image with title")
+```
 
 Result (hover the image to see the text appears)
 
@@ -125,7 +127,9 @@ Result (hover the image to see the text appears)
 
 Link with title (text on hover)
 
-![Markdown Links]({{ site.baseurl }}/images/20201207/markdown-links.png "The markdown image with title")
+```
+[This is a link]({{ site.baseurl }}/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
+```
 
 Result (hover the link to see the text appears)
 
@@ -137,6 +141,12 @@ To draw a horizontal line in markdown we can use:
 - 03 asterisks (*)
 - 03 underscores (_)
 
+```
+---
+***
+___
+```
+
 Result
 
 ---
@@ -146,7 +156,14 @@ ___
 ## Lists {#Lists}
 ### Ordered list  
 
-![Markdown Ordered List]({{ site.baseurl }}/images/20201207/markdown-ordered-list.png)
+```
+1. Item
+2. Item  
+    2.1. Sub-item  
+    > What about adding a blockquotes here
+    2.1. Sub-Item  
+3. Item
+```
 
 Result
 
@@ -159,7 +176,14 @@ Result
 
 ### Un-ordered list
 
-![Markdown unordered List]({{ site.baseurl }}/images/20201207/markdown-unordered-list.png)
+```
+- Item
+* Item
+    - Sub-item
+    > What about adding a blockquotes here
+    * Sub-item
++ Item
+```
 
 Result
 
@@ -199,7 +223,7 @@ I will add a footnote [^1] in this sentence[^thecode].
     ```
     End of the long code here
 
-## Task Lists (#Task)
+## Task Lists {#Task}
 
 ```
 - [x] I've done this  
@@ -211,7 +235,7 @@ Result
 - [x] I've done this
 - [ ] Note done yet
 
-## Escaping Characters (#Esc)
+## Escaping Characters {#Esc}
 In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in front of the literal character.
 
 ```  
