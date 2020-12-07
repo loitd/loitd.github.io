@@ -39,5 +39,8 @@ This is `inline code`
 - Use triple backticks to create a pre block  
 ```python
 a block of code
+def func1():
+'''Function 1'''
+    do_it()
 ```
 
