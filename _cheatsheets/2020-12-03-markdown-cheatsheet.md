@@ -180,11 +180,28 @@ I will add a footnote [^1] in this sentence[^thecode].
 
 ## Task Lists (#Task)
 
-![Markdown Task Lists]({{ site.baseurl }}/images/20201207/markdown-tasklist.png)
+\- [x] I've done this  
+\- [ ] Note done yet  
 
 Result
 
 - [x] I've done this
 - [ ] Note done yet
+
+## Escaping Characters
+In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in front of the literal character.
+
+\\\```python  
+def f1():  
+    hey()  
+\\\```  
+
+Result
+
+\```python  
+def f1():  
+    hey()  
+\```  
+
 
 ---
