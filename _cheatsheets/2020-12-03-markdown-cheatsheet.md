@@ -42,15 +42,19 @@ This is `inline code`
 
 Result
 
-```python
-# A block of Python code -> Python syntax highlighting
+```
+# No language indicated -> no syntax highlighting
 def func1():
 '''Function 1'''
     do_it()
 ```  
-Another pre block without syntax specified   
-```
-# No language indicated -> no syntax highlighting
+
+Another pre block with syntax specified   
+
+![Markdown Python pre block]({{ site.baseurl }}/images/20201207/markdown-python-pre-block.png)
+
+```python
+# A block of Python code -> Python syntax highlighting
 def func2():
 '''Function 2'''
     do_it()
