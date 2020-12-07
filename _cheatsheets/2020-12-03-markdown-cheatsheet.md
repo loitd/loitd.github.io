@@ -61,6 +61,8 @@ Another pre block with syntax specified
 
 ![Markdown Python pre block]({{ site.baseurl }}/images/20201207/markdown-python-pre-block.png)
 
+Result
+
 ```python
 # A block of Python code -> Python syntax highlighting
 def func2():
@@ -69,3 +71,10 @@ def func2():
 ```  
 
 ## Colors
+Markdown doesn't support color, we need to use inline HTML inside markdown.
+
+![Markdown Colors]({{ site.baseurl }}/images/20201207/markdown-colors.png)
+
+Result
+
+I am <span style="color:red"> the **RED** text</span>
