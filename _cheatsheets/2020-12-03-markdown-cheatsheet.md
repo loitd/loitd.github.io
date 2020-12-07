@@ -127,7 +127,7 @@ Result
 ___
 
 ## List
-Ordered list  
+### Ordered list  
 
 ![Markdown Ordered List]({{ site.baseurl }}/images/20201207/markdown-ordered-list.png)
 
@@ -140,7 +140,7 @@ Result
     2.1. Sub-Item  
 3. Item
 
-Un-ordered list
+### Un-ordered list
 
 ![Markdown unordered List]({{ site.baseurl }}/images/20201207/markdown-unordered-list.png)
 
@@ -153,4 +153,14 @@ Result
     * Sub-item
 + Item
 
+## Footnote
+I will add a footnote [^1] in this sentence.[^thecode]
 
+[^1]: This is the footnote  
+[^thecode]: Wow, i think this gonna be a long code.  
+    You need to indent the text to include them into the footnote
+    ```python
+    def f1():
+        hey()
+    ```
+    End of the long code here
