@@ -5,7 +5,14 @@ title: Markdown Cheatsheet
 
 This is a complete Markdown cheatsheet. Press Control+F to speedup your findings.
 
-## Heading {#Heading}
+## Table of content
+| | | | |
+|-|-|-|-|
+|[Headings](#Headings)|[Line Breaks](#LineBreaks)|[Bold, Italic & Strikethrough](#BIS)|[Blockquotes, Code and Pre](#BCP)|
+|[Colors](#Colors)|[Tables](#Tables)|[Images and Links](#ImagesLinks)|[Horizontal Lines](#Horizontal)|
+|[Lists](#Lists)|[Footnotes](#Footnotes)|[Task Lists](#Task)||
+
+## Headings {#Headings}
 Use number signs to define headings. Number of number sign defines the level of the heading.
 
 | Markdown      |   Meaning     |
@@ -114,7 +121,7 @@ Result (hover the link to see the text appears)
 
 [This is a link]({{ site.baseurl }}/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
 
-## Horizontal lines {#Horizontal}
+## Horizontal Lines {#Horizontal}
 To draw a horizontal line in markdown we can use:
 - 03 hyphens (-)
 - 03 asterisks (*)
@@ -126,7 +133,7 @@ Result
 ***
 ___
 
-## List {#List}
+## Lists {#Lists}
 ### Ordered list  
 
 ![Markdown Ordered List]({{ site.baseurl }}/images/20201207/markdown-ordered-list.png)
@@ -153,7 +160,7 @@ Result
     * Sub-item
 + Item
 
-## Footnote {#Footnote}
+## Footnotes {#Footnotes}
 Please noted that the footnotes will be put at the end of the page automatically.
 
 ![Markdown Footnotes]({{ site.baseurl }}/images/20201207/markdown-footnotes.png)
@@ -171,7 +178,7 @@ I will add a footnote [^1] in this sentence[^thecode].
     ```
     End of the long code here
 
-## Task Lists
+## Task Lists (#Task)
 
 ![Markdown Task Lists]({{ site.baseurl }}/images/20201207/markdown-tasklist.png)
 
