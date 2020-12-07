@@ -100,19 +100,19 @@ Result
 
 Images with title
 
-![Markdown Images](http://oraerr.com/images/20201207/markdown-images.png "The markdown image with title")
+![Markdown Images]({{ site.baseurl }}/images/20201207/markdown-images.png "The markdown image with title")
 
 Result (hover the image to see the text appears)
 
-![alt-text](http://oraerr.com/images/logo.png "The markdown image with title")
+![alt-text]({{ site.baseurl }}/images/logo.png "The markdown image with title")
 
 Link with title (text on hover)
 
-![Markdown Links](http://oraerr.com/images/20201207/markdown-links.png "The markdown image with title")
+![Markdown Links]({{ site.baseurl }}/images/20201207/markdown-links.png "The markdown image with title")
 
-Result
+Result (hover the link to see the text appears)
 
-[This is a link](http://oraerr.com/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
+[This is a link]({{ site.baseurl }}/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
 
 ## Horizontal lines
 To draw a horizontal line in markdown we can use:
@@ -125,4 +125,32 @@ Result
 ---
 ***
 ___
+
+## List
+Ordered list  
+
+![Markdown Ordered List]({{ site.baseurl }}/images/20201207/markdown-ordered-list.png)
+
+Result
+
+1. Item
+2. Item  
+    2.1. Sub-item  
+    > What about adding a blockquotes here
+    2.1. Sub-Item  
+3. Item
+
+Un-ordered list
+
+![Markdown unordered List]({{ site.baseurl }}/images/20201207/markdown-unordered-list.png)
+
+Result
+
+- Item
+* Item
+    - Sub-item
+    > What about adding a blockquotes here
+    * Sub-item
++ Item
+
 
