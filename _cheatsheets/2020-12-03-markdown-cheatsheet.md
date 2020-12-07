@@ -17,8 +17,10 @@ Use number signs to define headings. Number of number sign defines the level of 
 ## Line Breaks
 Add two or more space at the end of the line for line breaker (br)
 
-> First line (space)(space)  
-> Second line
+```
+First line (space)(space)  
+Second line
+```
 
 ## Bold & Italic
 Use:
@@ -94,8 +96,18 @@ Result
 
 ## Images and Links
 
-![Markdown Images](http://oraerr.com/images/20201207/markdown-images.png "The markdown colors")
+Images with title
+
+![Markdown Images](http://oraerr.com/images/20201207/markdown-images.png "The markdown image with title")
 
 Result
 
-![alt-text](http://oraerr.com/images/20201207/markdown-colors.png "The markdown colors")
+![alt-text](http://oraerr.com/images/logo.png "The markdown image with title")
+
+Link with title (text on hover)
+
+![Markdown Links](http://oraerr.com/images/20201207/markdown-links.png "The markdown image with title")
+
+Result
+
+[This is a link](http://oraerr.com/cheatsheets/markdown-cheatsheet/ "The markdown link with title")
