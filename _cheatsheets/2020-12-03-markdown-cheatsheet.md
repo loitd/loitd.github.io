@@ -7,10 +7,10 @@ This is a complete Markdown cheatsheet. Press Control+F to speedup your findings
 
 ## Table of content
 | | | | |
-|-|-|-|-|
+|---|---|---|---|
 |[Headings](#Headings)|[Line Breaks](#LineBreaks)|[Bold, Italic & Strikethrough](#BIS)|[Blockquotes, Code and Pre](#BCP)|
 |[Colors](#Colors)|[Tables](#Tables)|[Images and Links](#ImagesLinks)|[Horizontal Lines](#Horizontal)|
-|[Lists](#Lists)|[Footnotes](#Footnotes)|[Task Lists](#Task)||
+|[Lists](#Lists)|[Footnotes](#Footnotes)|[Task Lists](#Task)|[Escaping Characters](#Escape)|
 
 ## Headings {#Headings}
 Use number signs to define headings. Number of number sign defines the level of the heading.
@@ -190,7 +190,7 @@ Result
 - [x] I've done this
 - [ ] Note done yet
 
-## Escaping Characters
+## Escaping Characters (#Escape)
 In Markdown, the escaping charater is a backslash ( \ ). Put a backslash in front of the literal character.
 
 ```  
