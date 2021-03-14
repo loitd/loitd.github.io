@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: cheatsheet
 category: cheatsheets
 tags: programming, react
 title: A Complete Markdown Cheatsheet
