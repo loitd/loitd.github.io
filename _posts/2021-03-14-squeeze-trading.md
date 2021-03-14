@@ -39,4 +39,10 @@ Giải thích thêm 1 chút về các chỉ số kỹ thuật ở đây:
 - Keltner Channels: là đường hình thành dựa trên đường trung bình động tiêu chuẩn (standard moving average). So với BB thì KC thường biến động chậm hơn (steady).
 - Momentum Index oscillator: dùng để đo đạc hướng đi, tốc độ và điểm quay đầu (direction, velocity and turning points)
 
-Tóm lại: để setup được phương pháp này, cần 3 chỉ số đã nêu.
+Tóm lại: để setup được phương pháp này, cần 3 chỉ số đã nêu. Khoảng lặng của thị trường (sideway, low volatility) mà tôi tìm kiếm được xác định khi BB nằm trong KC. Điều đó cho thấy thị trường đang trong thời kỳ im lặng chờ đợi bùng nổ. Tín hiệu trade xuất hiện khi mà BB phá vỡ KC. Khi có tín hiệu xuất hiện rồi thì tôi sẽ dùng 1 oscillator Momentum index chu kỳ 12 để xác định lên long hay short. Khi này nếu oscillator > 0 tại thời điểm phá vỡ của BB => tôi sẽ long. ngược lại nếu oscillator < 0, tôi sẽ short. 
+
+Tôi sử dụng các tham số mặc định cho các công cụ này, 20 & 1.5 cho KC và 20 & 2 cho BB. Chúng ta cũng cần tunned để cho indicator này trở nên dễ đọc hơn.
+
+## Làm sao để vào đúng lúc
+Tôi sử dụng squeeze cho cả day trading và swing trading. Time frame càng nhỏ thì xác suất có tín hiệu trade càng nhiều. Trên đồ thị 2 phút, biểu đồ có thể xuất hiện 3-5 lần/ngày trong khi trên biểu đồ ngày có thể xuất hiện tín hiệu từ 6-7 lần/năm. Có những thời điểm thị trường ảm đạm, do đó tôi phải đa dạng hóa danh mục của mình. Tôi hay tập trung vào S&P và DOW tuy nhiên cũng không ngoại trừ forex, gold, oil, ...
+
