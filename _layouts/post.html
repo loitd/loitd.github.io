@@ -6,9 +6,9 @@ layout: default
   <h1>{{ page.title }}</h1>
   
   <!-- Added post meta into post type -->
-  <div style="justify-content: center; align-items: center;">
+  <div class="post-meta" style="position: relative;">
     <i class="svg-icon category"></i>
-    <span style="font-style: italic;">{% if page.categories %}{{ page.categories }}{% endif %}</span>
+    <a href="#" style="font-style: italic; text-decoration: none; position: absolute; top: 50%; transform: translateY(-50%); -ms-transform: translateY(-50%);">{% if page.categories %}{{ page.categories }}{% endif %}</a>
   </div>
 
   <div class="entry">
