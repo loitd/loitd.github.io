@@ -17,12 +17,10 @@ Xác định được điều này đưa đến cho chúng ta 2 điểm:
 - Xác định phân bố dòng tiền như thế nào?
 - Xác định chiến thuật tối ưu hóa dòng tiền hiện tại
 
-Tóm lại là dựa vào trạng thái của thị trường, xác định được chiến thuật cho tối ưu.
+Tóm lại là dựa vào trạng thái của thị trường, xác định được chiến thuật cho tối ưu và squeeze là một công cụ xác định trạng thái thị trường rất tốt.
 
 ## Timeframes
-Squeeze có thể sử dụng ở mọi khung thời gian nhưng tốt hơn cả là ở các khung thời gian lớn. Đối với daytrader, khung thời gian phổ biến là 5 phút. Tuy vậy không phải cứ nhìn chằm chằm khung 5 phút mà cần xem xét cả các khung lớn hơn. 
-
-Nếu như khung tuần, khung ngày đang trong quá trình squeeze giảm thì không có lý do gì lại theo khung 5 phút tăng để chống lại việc giảm trên -> trend is a friend.
+Squeeze có thể sử dụng ở mọi khung thời gian nhưng tốt hơn cả là ở các khung thời gian lớn. Đối với daytrader, khung thời gian phổ biến là 5 phút. Tuy vậy không phải cứ nhìn chằm chằm khung 5 phút mà cần xem xét cả các khung lớn hơn. Nếu như khung tuần, khung ngày đang trong quá trình squeeze giảm thì không có lý do gì lại theo khung 5 phút tăng để chống lại việc giảm trên -> trend is a friend.
 
 ## Swing trader
 Nếu chiến thuật của bạn là day trader thì cần hiểu rằng có nhiều điểm bùng nổ vào thời điểm ban đêm và swing trader thu được rất nhiều lợi nhuận. So với daytrader thì swingtrader tại mỗi thời điểm bùng nổ có thể đạt tới lãi suất nhiều tuần của daytrader.
@@ -40,3 +38,5 @@ Giải thích thêm 1 chút về các chỉ số kỹ thuật ở đây:
 - Bollinger Bands: là đường chứa độ lệch chuẩn (standard deviation level) trên và dưới 1 đường trung bình (moving average). Độ rộng của dải BB sẽ tương ứng với các trạng thái volatility của thị trường. BB càng hẹp thị trường càng low volatility (sideway).
 - Keltner Channels: là đường hình thành dựa trên đường trung bình động tiêu chuẩn (standard moving average). So với BB thì KC thường biến động chậm hơn (steady).
 - Momentum Index oscillator: dùng để đo đạc hướng đi, tốc độ và điểm quay đầu (direction, velocity and turning points)
+
+Tóm lại: để setup được phương pháp này, cần 3 chỉ số đã nêu.
