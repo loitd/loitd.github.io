@@ -40,4 +40,3 @@ Giải thích thêm 1 chút về các chỉ số kỹ thuật ở đây:
 - Bollinger Bands: là đường chứa độ lệch chuẩn (standard deviation level) trên và dưới 1 đường trung bình (moving average). Độ rộng của dải BB sẽ tương ứng với các trạng thái volatility của thị trường. BB càng hẹp thị trường càng low volatility (sideway).
 - Keltner Channels: là đường hình thành dựa trên đường trung bình động tiêu chuẩn (standard moving average). So với BB thì KC thường biến động chậm hơn (steady).
 - Momentum Index oscillator: dùng để đo đạc hướng đi, tốc độ và điểm quay đầu (direction, velocity and turning points)
----
