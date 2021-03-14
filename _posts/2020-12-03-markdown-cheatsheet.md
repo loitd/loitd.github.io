@@ -1,11 +1,12 @@
 ---
-layout: cheatsheet
+layout: post
 category: cheatsheets
 tags: programming, react
 title: A Complete Markdown Cheatsheet
 ---
 
 This is a complete Markdown cheatsheet that provides a quick overview of most important the Markdown syntaxes. Press Control+F to speedup your findings.
+
 ## Table of contents
 
 |     .               |     .                    |            .                       |         .                       |
