@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Jekyll
+category: jekyll
 tags: programming
 title: How to add new post types in Jekyll
 ---

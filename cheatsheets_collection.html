@@ -3,8 +3,8 @@ layout: default
 ---
 
 <div class="posts cheatsheets">
-  {% for cheatsheet in site.categories["cheatsheets"] %}
-    <article class="post cheatsheet">
+  {% for cheatsheet in site.cheatsheets %}
+    <article class="post">
 
       <h1><a href="{{ site.baseurl }}{{ cheatsheet.url }}">{{ cheatsheet.title }}</a></h1>
 
