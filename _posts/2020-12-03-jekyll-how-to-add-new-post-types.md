@@ -2,7 +2,7 @@
 layout: post
 category: jekyll
 tags: programming
-title: How to add new post types in Jekyll
+title: How to add new post types in Jekyll (using collection)
 ---
 
 In Jekyll, `posts` inside `_posts` folder belong to a special *post* type and being handled automatically by Jekyll, therefore you have to do some extra configuration steps if you want to create a new post type yourself.  
@@ -89,3 +89,8 @@ collections:
 ```
 
 Now you can test your newly configuration by browsing the `/cheatsheets/` url.
+
+## Pros & Cons
+Using this method allows you to have separate folder beside the default `_post` folder but you need to configure some extra steps to have the new collection (`_cheatsheets` in this example) inside you `feed.xml`.  
+If you don't have you post inside any `feed.xml` like files, search engines like Google can not index your posts that are inside `_cheatsheets` folder.  
+Another simpler way is to use categories & tags in posts.
