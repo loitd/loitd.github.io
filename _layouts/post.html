@@ -11,10 +11,12 @@ layout: default
     <a href="#" style="font-style: italic; text-decoration: none; position: absolute; top: 50%; transform: translateY(-50%); -ms-transform: translateY(-50%);"> {% if page.categories %}{{ page.categories }}{% endif %} </a>
   </div>
 
+  <!-- post entry -->
   <div class="entry">
     {{ content }}
   </div>
 
+  <!-- page footer -->
   <div class="date">
     Last updated on {{ page.date | date: "%B %e, %Y" }}
   </div>
