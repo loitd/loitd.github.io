@@ -1,5 +1,7 @@
 ---
 layout: post
+category: intro
+tags: hello, intro
 title: Hello world for a long time!
 ---
 

@@ -1,5 +1,7 @@
 ---
 layout: post
+category: React Native
+tags: programming, react
 title: Making first React Native application
 ---
 

@@ -53,7 +53,10 @@ baseurl: ""
 # !! You don't need to change any of the configuration flags below !!
 #
 
-permalink: /:title/
+# https://jekyllrb.com/docs/permalinks/#front-matter
+# https://jekyllrb.com/docs/permalinks/#built-in-formats
+# permalink: /:title/
+permalink: /:categories/:title:output_ext
 
 # The release of Jekyll Now that you're using
 version: v1.2.0
@@ -93,7 +96,7 @@ collections:
     permalink: /:collection/:title/
 
 # Added by loitd to configure jekyll-feed to parse new post type also 
-feed:
-  categories:
-    - posts
-    - cheatsheets
+#feed:
+#  categories:
+#    - posts
+#    - cheatsheets
