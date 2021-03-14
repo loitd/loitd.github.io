@@ -91,3 +91,9 @@ collections:
   cheatsheets:
     output: true
     permalink: /:collection/:title/
+
+# Added by loitd to configure jekyll-feed to parse new post type also 
+feed:
+  categories:
+    - posts
+    - cheatsheets
