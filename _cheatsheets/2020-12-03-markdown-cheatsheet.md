@@ -1,6 +1,6 @@
 ---
 layout: cheatsheet
-title: Markdown Cheatsheet
+title: A Complete Markdown Cheatsheet
 ---
 
 This is a complete Markdown cheatsheet. Press Control+F to speedup your findings.
