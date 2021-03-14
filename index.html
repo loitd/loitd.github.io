@@ -13,6 +13,10 @@ layout: default
       </div>
 
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+
+      <div class="post-meta">
+        <a href="#" class="read-more"> {% if page.categories %}{{ page.categories }}{% endif %} </a>
+      </div>
     </article>
   {% endfor %}
 </div>
