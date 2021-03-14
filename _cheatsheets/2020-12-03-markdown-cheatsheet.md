@@ -3,8 +3,7 @@ layout: cheatsheet
 title: A Complete Markdown Cheatsheet
 ---
 
-This is a complete Markdown cheatsheet. Press Control+F to speedup your findings.
-
+This is a complete Markdown cheatsheet that provides a quick overview of most important the Markdown syntaxes. Press Control+F to speedup your findings.
 ## Table of contents
 
 |     .               |     .                    |            .                       |         .                       |
