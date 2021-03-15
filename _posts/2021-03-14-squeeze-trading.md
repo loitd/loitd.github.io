@@ -55,7 +55,7 @@ Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
 ### Setup 1
 ![squeeze-setup-01]({{ site.baseurl }}/images/20210315/squeeze-setup-01.png)
 - Thiết lập biểu đồ 24h để các tín hiện qua đêm cũng được đưa vào. Đối với intraday, cài biểu đồ 5 phút. Biểu đồ 1 phút và 2 phút sẽ tốt cho scalping tuy nhiên tín hiệu không được mạnh như 5 phút.
-- Sử dụng các chỉ báo KC 20 1.5, BB 20 2.0, Momentum 12 close, Squeeze của LazyBear theo cấu hình mặc định.
+- Sử dụng các chỉ báo KC 20 1.5, BB 20 2.0, Momentum 12 close hoặc chỉ 1 indi Squeeze đã được tổng hợp 3 công cụ trên của LazyBear theo cấu hình mặc định.
 - Chỉ báo mũi tên màu đen gọi là heads-up là chỉ bảo cho biết BB đang nằm trong KC và thị trường đang sideway.
 - Chỉ báo tương tự nhưng màu xám xuất hiện ngay sau 1 series của màu đen là 1 chỉ báo cho biết BB đang nằm ngoài KC.
 - Khi mũi tên xám đầu tiên xuất hiện, nếu **histogram** > 0 => go long và ngược lại nếu **histogram** < 0 tôi sẽ go short. Cho dù không phổ biến lắm nhưng vẫn có trường hợp khi xuất hiện gray thì momentum vẫn ở dưới 0 (dù có tăng dần), tín hiệu này cũng cấu thành được 1 lệnh long.
@@ -74,7 +74,7 @@ Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
         - US: 7 ticks
         - Gold: 1.50
         - Stocks: 50 cents
-- Đối với swingtrader và position traders, sử dụng biểu đồ daily khung thời gian lớn, vẫn sử dụng ATR14 trên chart daily. Đối với khung thời gian này range biến đổi có thể thay đổi rất mạng, tăng hoặc giảm, do đó không có lý do gì để có thể thực hiện catch 1 bigger move chỉ với 2 points stop như với intraday được (nếu làm được ai cũng làm). Sau đây là các stop tôi dùng với swing: 
+- Đối với swingtrader và position traders, sử dụng biểu đồ daily khung thời gian lớn, vẫn sử dụng ATR14 trên chart daily. Đối với khung thời gian này range biến đổi có thể thay đổi rất mạnh, tăng hoặc giảm, do đó không có lý do gì để có thể thực hiện catch 1 bigger move chỉ với 2 points stop như với intraday được (nếu làm được ai cũng làm). Sau đây là các stop tôi dùng với swing: 
     - YM: 150 points
     - ES: 15 points
     - NQ: 25 points
@@ -91,3 +91,32 @@ Vẫn ví dụ trên, sau đây sẽ có thêm chỉ báo ATR
 ![squeeze-setup-01-with-atr]({{ site.baseurl }}/images/20210315/squeeze-setup-01-1.png)
 
 ## Sai lầm lớn nhất mà new traders gặp phải là gì?
+Vấn đề đầu tiên cần nói là *nhập tiệc muộn*: khi 1 trader vào xem chart và bỗng thấy AAPL đang up 5 điểm và anh ta cố gắng vớt theo bằng cách mua thêm AAPL. Một khi đã nhập tiệc muộn thì bạn chỉ còn xương để ăn. Hành động trên được gọi là cố đuổi theo thị trường, cũng giống như chó con đuổi theo xe ô tô, không sớm thì muộn, cũng sẽ kiệt sức. Thời điểm bạn vào thị trường thì đa phần các trader khác đã sắp thoát lệnh. Họ đã ăn xong bữa tiệc.
+
+Tôi thích đánh lén khi thị trường vẫn đang ở giai đoạn *im lặng* trước khi mọi người biết điều gì đang diễn ra và squeeze giúp tôi biết chính xác trạng thái của thị trường. Tôi không quá rắc rối với lệnh trade của mình. Khi động lực (momentum) của thị trường giảm, tôi lập tức out.
+
+Nhiều daytrader thực sự đắn đo khi đặt các lệnh swing. Họ lo sợ sẽ có 1 vụ 11/9 và thị trường lao dốc không phanh lần nữa. Theo kinh nghiệm của tôi, sau vụ 11/9, 1 trong số các biện pháp của các chính phủ là kiểm soát và theo dõi toàn bộ các lệnh của thị trường. Nếu xuất hiện các lệnh bán tháo cổ phiếu của ngay cả các hàng hàng không, các hãng bảo hiểm lớn rất nhiều người sẽ bị điều tra.
+
+Có thể trở lại biểu đồ của các cuộc đại suy thoái hoặc các thảm họa tấn công kiểu 11/9 hay sóng thần và áp dụng phương pháp trên ta vẫn thấy không có vấn đề gì do ta không đi ngược hướng thị trường.
+
+## Phương pháp trade nào tốt nhất cho người vẫn đi làm việc
+Bạn không phải là trader chuyên nghiệp và không trading for a living, thì theo anh John, squeeze trên biểu đồ daily hoặc weekly là phương án tốt nhất. Các loại cổ phiếu lựa chọn cũng không cần chọn nhiều mà cứ theo danh sách IBD50 là xong. Tại sao lại như vậy?
+
+Đơn giản là các kiểu giao dịch này không cần quản lý, theo dõi trong ngày. Ngay cả tôi là trader chuyên nghiệp theo dõi thị trường cả ngày nhưng tôi cũng không theo dõi swing trade trong ngày, vì không cần thiết phải như thế. Thậm chí việc không liên tục theo dõi lại là điểm tốt do tôi không phải táy máy đến các giao dịch của mình. Khi ngồi không và táy máy vào các giao dịch sẽ có rất nhiều hiệu ứng tâm lý đã nói trong chương 2 xuất hiện.
+
+Tóm lại, nếu bạn trade là phụ, đặt lệnh, cấu hình chuẩn tham số, đi làm và sau đó thỉnh thoảng login vào để xem tình hình. Cách giao dịch này thực sự ổn.
+
+Một ưu điểm khác của swing trade là các tín hiệu fake hay các squeeze làm việc không hiệu quả rất ít xuất hiện ở các khung thời gian lớn. Các tín hiệu ở khung 5 phút hoặc nhỏ hơn thường không mạnh và có thể sinh ra nhiều squeeze giả.
+
+## Cách để lọc bỏ bớt các squeeze lỗi
+Có nhiều squeeze kém hiệu quả hoặc thậm chí là không hiệu quả. Thông thường ít khi xuất hiện trên các đồ thị tuần hoặc tháng và ngược lại khá phổ biến trên các biểu đồ intraday như 5 phút, 39 phút. Vậy thì có cách nào để lọc bớt các tín hiệu fake/lỗi này?
+
+Như tôi đã có lần nói trong phần trước, vấn đề mấu chốt là ta cần phải check cả các khung thời gian lớn hơn nữa kể cả khi không có plan trade trên các khung thời gian đó. Việc chống lại trend trên các khung lớn hơn là điều hoàn toàn vô nghĩa.
+
+![squeeze-setup-02]({{ site.baseurl }}/images/20210315/squeeze-setup-01-2.png)
+
+Giả sử tại khung hourly chỉ số S&P đang giảm tuy nhiên tại week chart, chỉ số này lại đang tăng và tại khung hourly xuất hiện các chỉ dấu cho việc short tại squeeze. Như trong phần trên đã bàn, hãy bỏ qua các tín hiệu này và chỉ chấp nhận các tín hiệu có cùng trend với khung weekly. Như hình trên là bỏ tín hiệu 1, nhận tín hiệu 2 và 3.
+
+## RTM - Reverting back to the mean
+
+
