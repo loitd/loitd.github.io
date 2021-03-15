@@ -44,5 +44,43 @@ Tóm lại: để setup được phương pháp này, cần 3 chỉ số đã n�
 Tôi sử dụng các tham số mặc định cho các công cụ này, 20 & 1.5 cho KC và 20 & 2 cho BB. Chúng ta cũng cần tunned để cho indicator này trở nên dễ đọc hơn.
 
 ## Làm sao để vào đúng lúc
-Tôi sử dụng squeeze cho cả day trading và swing trading. Time frame càng nhỏ thì xác suất có tín hiệu trade càng nhiều. Trên đồ thị 2 phút, biểu đồ có thể xuất hiện 3-5 lần/ngày trong khi trên biểu đồ ngày có thể xuất hiện tín hiệu từ 6-7 lần/năm. Có những thời điểm thị trường ảm đạm, do đó tôi phải đa dạng hóa danh mục của mình. Tôi hay tập trung vào S&P và DOW tuy nhiên cũng không ngoại trừ forex, gold, oil, ...
+Tôi sử dụng squeeze cho cả day trading và swing trading. Time frame càng nhỏ thì xác suất có tín hiệu trade càng nhiều. Trên đồ thị 2 phút, biểu đồ có thể xuất hiện 3-5 lần/ngày trong khi trên biểu đồ ngày có thể xuất hiện tín hiệu từ 6-7 lần/năm. Có những thời điểm thị trường ảm đạm, do đó tôi phải đa dạng hóa danh mục của mình. Tôi dành phần lớn thời gian tập trung vào S&P và DOW tuy nhiên cũng không ngoại trừ forex, gold, oil, ...
+
+Bù lại, trên biểu đồ 2 phút, đường squeeze chỉ có thể đưa thị trường đi 10-20 điểm YM tương đương 377 tick chart. Trên biểu đồ 15 phút, đường squeeze có thể đưa thị trường đi 30-50 điểm. Trên biểu đồ ngày, số điểm có thể lên đến vài trăm điểm.
+
+Ghi nhớ 1 điều, trong 1 ngày, cơ hội xuất hiện không nhiều. Nếu thấy cơ hội xuất hiện nhiều chắc chắn không đúng. Miếng format miễn phí chỉ có trong cái bẫy chuột.
+
+## Các setups tôi dùng
+Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
+### Setup 1
+- Thiết lập biểu đồ 24h để các tín hiện qua đêm cũng được đưa vào. Đối với intraday, cài biểu đồ 5 phút.
+- Chỉ báo mũi tên màu đen gọi là heads-up là chỉ bảo cho biết BB đang nằm trong KC và thị trường đang sideway.
+- Chỉ báo tương tự nhưng màu xám xuất hiện ngay sau 1 series của màu đen là 1 chỉ báo cho biết BB đang nằm ngoài KC.
+- Khi mũi tên xám đầu tiên xuất hiện, nếu histogram > 0 => go long. Cho dù không phổ biến lắm nhưng vẫn có trường hợp khi xuất hiện gray thì momentum histogram vẫn ở dưới 0 (dù giảm dần), tín hiệu này cũng cấu thành được 1 lệnh long.
+- Đối với daytrader, thực hiện quản lý tiền như sau:
+    - Xác định stop bằng cách sử dụng ATR14 sau đó gấp đôi giá trị hiện thời để làm stop.
+    - Nếu vào lệnh tại 1104 trong khi daily pivot là 1101.75 -> stop sẽ dưới pivot 1 chút là 1101.50 (tức là 2.5 thay cho 2.0) -> xem xét daily pivot
+    - Các stop phổ biến tôi thường dùng:
+        - YM: 20 điểm
+        - ES: 2 điểm
+        - NQ: 4 điểm
+        - TF: 1.5 điểm (points)
+        - EC: 20 ticks
+        - EURUSD: 20 pips
+        - US: 7 ticks
+        - Gold: 1.50
+        - Stocks: 50 cents
+- Đối với swingtrader và position traders, sử dụng biểu đồ daily khung thời gian lớn, vẫn sử dụng ATR14 trên chart daily. Đối với khung thời gian này range biến đổi có thể thay đổi rất mạng, tăng hoặc giảm, do đó không có lý do gì để có thể thực hiện catch 1 bigger move chỉ với 2 points stop như với intraday được (nếu làm được ai cũng làm). Sau đây là các stop tôi dùng với swing: 
+    - YM: 150 points
+    - ES: 15 points
+    - NQ: 25 points
+    - TF: 8 points
+    - EC: 100 ticks
+    - EURUSD: 100 pips
+    - US: 35 ticks
+    - Gold: 20.0
+    - Stocks: $2.5
+- Tôi đặt target hoàn toàn dựa theo momentum. Khi tín hiệu momentum yếu đi tôi sẽ thoát lệnh, không có 1 target cụ thể.
+- Tôi không sử dụng trail stops.
+
 
