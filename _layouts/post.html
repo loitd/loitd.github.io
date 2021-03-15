@@ -7,15 +7,13 @@ layout: default
   
   <!-- Added post meta into post type -->
   <div class="post-meta">
-    <div class="post-category">
-      <i class="svg-icon-16 category-16"></i>
-      <a href="#" class="post-meta-link"> {% if page.categories %}{{ page.categories }}{% endif %} </a>
-    </div>
-    <div class="post-tag">
-      <i class="svg-icon-16 tag-16"></i>
-      <a href="#" class="post-meta-link"> {% if page.tags %}{{ page.tags }}{% endif %} </a>
-    </div>  
+    <i class="svg-icon-16 category-16"></i>
+    <a href="#" class="post-meta-link"> {% if page.categories %}{{ page.categories }}{% endif %} </a>
   </div>
+  <div class="post-meta">
+    <i class="svg-icon-16 tag-16"></i>
+    <a href="#" class="post-meta-link"> {% if page.tags %}{{ page.tags }}{% endif %} </a>
+  </div>  
   
 
   <!-- post entry -->
