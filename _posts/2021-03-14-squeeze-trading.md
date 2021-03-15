@@ -117,6 +117,21 @@ Như tôi đã có lần nói trong phần trước, vấn đề mấu chốt l�
 
 Giả sử tại khung hourly chỉ số S&P đang giảm tuy nhiên tại week chart, chỉ số này lại đang tăng và tại khung hourly xuất hiện các chỉ dấu cho việc short tại squeeze. Như trong phần trên đã bàn, hãy bỏ qua các tín hiệu này và chỉ chấp nhận các tín hiệu có cùng trend với khung weekly. Như hình trên là bỏ tín hiệu 1, nhận tín hiệu 2 và 3.
 
-## RTM - Reverting back to the mean
+# RTM - Reverting back to the mean
+## ATR hay câu hỏi Khi nào thị thị trường hết động lực?
+Pivots thì khá là ổn cho thị trường intraday, tuy nhiên với các khung thời gian lớn hơn như daily hoặc weekly thì phải làm thế nào? Cần hiểu 1 việc là nếu xác định khung trade là 1 giờ hay 1 phút thì các chỉ báo cũng sẽ hỗ trợ cho bạn *an toàn* khi cầm trade trong 1 giờ/1 phút đã nêu. Pivot chỉ phù hợp cho các khung thời gian intraday mà không phù hợp cho các khung dài hơn.
 
+Khi này khái niệm về *giá trung bình* được đưa ra, khái niệm này không khó, câu hỏi đặt ra là "Giá sẽ được đẩy ra xa bao nhiêu so với giá trung bình trước khi bị kéo trở lại (với giá trung bình)? Để trả lời câu hỏi này ATR ra đời. ATR - Average True Range - Phạm vi trung bình thực thông thường được setup ở khung 14. Vậy ATR cụ thể là gì?
 
+![squeeze-setup-02-ATR]({{ site.baseurl }}/images/20210315/squeeze-setup-01-3.png)
+
+Xem xét trên hình trên ta thấy, tại vùng xung quanh điểm 1, ATR có giá trị khoảng 20 có nghĩa là khi vàng có giá trị lệch (tăng hoặc giảm) khỏi mean zone (là zone tạo bởi đường EMA13 và EMA21 - vùng giá trung bình) khoảng 20$/lượng thì lại quay về vùng giá trung bình. Tương tự với vùng 3 ta thấy ATR lên tới 60$ như vậy giá đã có những thời điểm lệch đến 60$/lượng trước khi bị kéo về giá trung bình. 
+
+## Kênh Keltner
+Từ khái niệm về ATR trên ta đi đến khái niệm về Keltner Channel, KC hay kênh Keltner. Ta sẽ set tham số của KC là 13 và 1.5 có nghĩa là đường giá trung bình sẽ là 13 (đường chính giữa) còn 2 dải xung quanh sẽ bằng ATR tại thời điểm đó * 1.5 lần. Cũng có nghĩa là, tại 1 thời điểm bất kỳ, dải trên và dưới có giá trị gấp 1.5 lần ATR. Để dễ hình dung hãy xem ví dụ:
+
+![squeeze-setup-02-KC]({{ site.baseurl }}/images/20210315/squeeze-setup-01-4.png)
+
+Tại điểm 1 ta có ATR = 0.0100 tương đương với 100 ticks => điểm 2 và điểm 3 phải cách đường giữa 100*1.5 = 150 ticks. Tại sao lại gấp 1.5 lần? Lý do là KC là 1 chỉ báo có lag, do đó người thiết lập mong muốn nới room cho giá di chuyển qua đó KC sẽ bao quát hơn.
+
+Nói cách khác, KC là 1 hình thức thể hiện của ATR trên đồ thị với 1 số biến đổi (như gấp 1.5 lần). Qua việc ứng dụng ATR có thể trở thành các điểm Resistant/Support mềm trên đồ thị với độ chính xác khá tương đối. Đối với cách ứng dụng KC, tôi (John) cũng sử dụng stop loss ngay ngoài đường biên của KC để tránh các thiệt hại đáng kể.
