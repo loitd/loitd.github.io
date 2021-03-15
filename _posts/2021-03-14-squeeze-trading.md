@@ -53,6 +53,7 @@ Ghi nhớ 1 điều, trong 1 ngày, cơ hội xuất hiện không nhiều. Nế
 ## Các setups tôi dùng
 Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
 ### Setup 1
+![squeeze-setup-01]({{ site.baseurl }}/images/20210315/squeeze-setup-01.png)
 - Thiết lập biểu đồ 24h để các tín hiện qua đêm cũng được đưa vào. Đối với intraday, cài biểu đồ 5 phút. Biểu đồ 1 phút và 2 phút sẽ tốt cho scalping tuy nhiên tín hiệu không được mạnh như 5 phút.
 - Sử dụng các chỉ báo KC 20 1.5, BB 20 2.0, Momentum 12 close, Squeeze của LazyBear theo cấu hình mặc định.
 - Chỉ báo mũi tên màu đen gọi là heads-up là chỉ bảo cho biết BB đang nằm trong KC và thị trường đang sideway.
