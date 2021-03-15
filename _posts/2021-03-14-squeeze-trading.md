@@ -58,7 +58,8 @@ Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
 - Sử dụng các chỉ báo KC 20 1.5, BB 20 2.0, Momentum 12 close, Squeeze của LazyBear theo cấu hình mặc định.
 - Chỉ báo mũi tên màu đen gọi là heads-up là chỉ bảo cho biết BB đang nằm trong KC và thị trường đang sideway.
 - Chỉ báo tương tự nhưng màu xám xuất hiện ngay sau 1 series của màu đen là 1 chỉ báo cho biết BB đang nằm ngoài KC.
-- Khi mũi tên xám đầu tiên xuất hiện, nếu histogram > 0 => go long. Cho dù không phổ biến lắm nhưng vẫn có trường hợp khi xuất hiện gray thì momentum vẫn ở dưới 0 (dù có tăng dần), tín hiệu này cũng cấu thành được 1 lệnh long. Ngược lại, nếu
+- Khi mũi tên xám đầu tiên xuất hiện, nếu **histogram** > 0 => go long và ngược lại nếu **histogram** < 0 tôi sẽ go short. Cho dù không phổ biến lắm nhưng vẫn có trường hợp khi xuất hiện gray thì momentum vẫn ở dưới 0 (dù có tăng dần), tín hiệu này cũng cấu thành được 1 lệnh long.
+- Kể cả khi chỉ xuất hiện 1 mũi tên đen, tôi vẫn coi đó là điểm vào lệnh như bình thường. Không yêu cầu phải có cả dãy điểm đen tôi mới vào lệnh.
 - Trong các trường hợp tôi đều không dùng limit order mà dùng market order. Nói cách khác, khi có tín hiệu là tôi vào lệnh chứ không đợi giá để vào lệnh. Limit order là hình thức chỉ vào lệnh khi giá thỏa mãn điều kiện.
 - Đối với daytrader, thực hiện quản lý tiền như sau:
     - Xác định stop bằng cách sử dụng ATR14 sau đó gấp đôi giá trị hiện thời để làm stop.
@@ -83,7 +84,10 @@ Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
     - US: 35 ticks
     - Gold: 20.0
     - Stocks: $2.5
-- Tôi đặt target hoàn toàn dựa theo momentum. Khi tín hiệu momentum yếu đi tôi sẽ thoát lệnh, không có 1 target cụ thể.
+- Tôi đặt target hoàn toàn dựa theo momentum. Khi tín hiệu momentum yếu đi tôi sẽ thoát lệnh, không có 1 target cụ thể. Tín hiệu yếu dần đi được hiểu là khi **histogram** vẫn cho tín hiệu thuận, vd: tôi đang short, histogram vẫn đang giảm dần và thanh sau lớn hơn thanh trước. Đến khi histogram có thanh đầu tiên ngắn hơn thanh trước, tôi sẽ thoát lệnh.
 - Tôi không sử dụng trail stops.
 
+Vẫn ví dụ trên, sau đây sẽ có thêm chỉ báo ATR
+![squeeze-setup-01-with-atr]({{ site.baseurl }}/images/20210315/squeeze-setup-01-1.png)
 
+## Sai lầm lớn nhất mà new traders gặp phải là gì?
