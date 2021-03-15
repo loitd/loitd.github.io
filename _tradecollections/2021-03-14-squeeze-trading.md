@@ -62,7 +62,7 @@ Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
 - Kể cả khi chỉ xuất hiện 1 mũi tên đen, tôi vẫn coi đó là điểm vào lệnh như bình thường. Không yêu cầu phải có cả dãy điểm đen tôi mới vào lệnh.
 - Trong các trường hợp tôi đều không dùng limit order mà dùng market order. Nói cách khác, khi có tín hiệu là tôi vào lệnh chứ không đợi giá để vào lệnh. Limit order là hình thức chỉ vào lệnh khi giá thỏa mãn điều kiện.
 - Đối với daytrader, thực hiện quản lý tiền như sau:
-    - Xác định stop bằng cách sử dụng ATR14 sau đó gấp đôi giá trị hiện thời để làm stop.
+    - Xác định stop bằng ATR14 * 2. Tôi nghĩ có thể dùng KC 14 2 để cho dễ nhìn.
     - Nếu vào lệnh tại 1104 trong khi daily pivot là 1101.75 -> stop sẽ dưới pivot 1 chút là 1101.50 (tức là 2.5 thay cho 2.0) -> xem xét daily pivot
     - Các stop phổ biến tôi thường dùng:
         - YM: 20 điểm
@@ -74,7 +74,7 @@ Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
         - US: 7 ticks
         - Gold: 1.50
         - Stocks: 50 cents
-- Đối với swingtrader và position traders, sử dụng biểu đồ daily khung thời gian lớn, vẫn sử dụng ATR14 trên chart daily. Đối với khung thời gian này range biến đổi có thể thay đổi rất mạnh, tăng hoặc giảm, do đó không có lý do gì để có thể thực hiện catch 1 bigger move chỉ với 2 points stop như với intraday được (nếu làm được ai cũng làm). Sau đây là các stop tôi dùng với swing: 
+- Đối với swingtrader và position traders, sử dụng biểu đồ daily khung thời gian lớn, vẫn sử dụng ATR14 trên chart daily. Đối với khung thời gian này range biến đổi có thể thay đổi rất mạnh, tăng hoặc giảm, do đó không có lý do gì để có thể thực hiện catch 1 bigger move chỉ với 2 points stop như với intraday được (nếu làm được ai cũng làm). Lưu ý là pivot lúc này không còn phù hợp đối với swing trade do đó không áp dụng pivot như phần trên. Sau đây là các stop tôi dùng với swing: 
     - YM: 150 points
     - ES: 15 points
     - NQ: 25 points
@@ -134,4 +134,7 @@ Từ khái niệm về ATR trên ta đi đến khái niệm về Keltner Channel
 
 Tại điểm 1 ta có ATR = 0.0100 tương đương với 100 ticks => điểm 2 và điểm 3 phải cách đường giữa 100*1.5 = 150 ticks. Tại sao lại gấp 1.5 lần? Lý do là KC là 1 chỉ báo có lag, do đó người thiết lập mong muốn nới room cho giá di chuyển qua đó KC sẽ bao quát hơn.
 
-Nói cách khác, KC là 1 hình thức thể hiện của ATR trên đồ thị với 1 số biến đổi (như gấp 1.5 lần). Qua việc ứng dụng ATR có thể trở thành các điểm Resistant/Support mềm trên đồ thị với độ chính xác khá tương đối. Đối với cách ứng dụng KC, tôi (John) cũng sử dụng stop loss ngay ngoài đường biên của KC để tránh các thiệt hại đáng kể.
+Nói cách khác, KC là 1 hình thức thể hiện của ATR trên đồ thị với 1 số biến đổi (như gấp 1.5 lần). Qua việc ứng dụng ATR có thể trở thành các điểm Resistant/Support mềm trên đồ thị với độ chính xác khá tương đối. Đối với cách ứng dụng KC, tôi (John) cũng sử dụng stop loss ngay ngoài đường biên của KC để tránh các thiệt hại đáng kể (tất nhiên lệnh nào cũng phải có stop). Ta có thể thấy điều này rất rõ trong phần squeeze khi John nói rằng, về cơ bản, lấy ATR *2 là stop loss.
+
+# Lướt sóng chuẩn (catching the wave)
+## Tại sao việc hiểu nguyên lý của anchor charts là cốt tử

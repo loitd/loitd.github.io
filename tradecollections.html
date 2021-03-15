@@ -3,13 +3,13 @@ layout: default
 ---
 
 <div class="posts cheatsheets">
-  {% for cheatsheet in site.cheatsheets %}
+  {% for post in site.tradecollections %}
     <article class="post">
 
-      <h1><a href="{{ site.baseurl }}{{ cheatsheet.url }}">{{ cheatsheet.title }}</a></h1>
+      <h1><a href="{{ site.baseurl }}{{ cheatsheet.url }}">{{ post.title }}</a></h1>
 
       <div class="entry">
-        {{ cheatsheet.excerpt }}
+        {{ post.excerpt }}
       </div>
 
       <a href="{{ site.baseurl }}{{ cheatsheet.url }}" class="read-more">Read More</a>
