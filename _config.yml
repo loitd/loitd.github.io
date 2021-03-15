@@ -55,6 +55,7 @@ baseurl: ""
 
 # https://jekyllrb.com/docs/permalinks/#front-matter
 # https://jekyllrb.com/docs/permalinks/#built-in-formats
+# Lưu ý: phải thêm trailling slash để đảm bảo tránh lõi 404 jekyll không nhận được các url dạng abc.com/about/
 # permalink: /:title/
 permalink: /:categories/:title:output_ext/
 

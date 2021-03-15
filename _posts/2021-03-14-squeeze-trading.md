@@ -37,7 +37,7 @@ Theo chỉ báo bollinger thì trạng thái low Volatility là trạng thái m�
 Giải thích thêm 1 chút về các chỉ số kỹ thuật ở đây:  
 - Bollinger Bands: là đường chứa độ lệch chuẩn (standard deviation level) trên và dưới 1 đường trung bình (moving average). Độ rộng của dải BB sẽ tương ứng với các trạng thái volatility của thị trường. BB càng hẹp thị trường càng low volatility (sideway).
 - Keltner Channels: là đường hình thành dựa trên đường trung bình động tiêu chuẩn (standard moving average). So với BB thì KC thường biến động chậm hơn (steady).
-- Momentum Index oscillator: dùng để đo đạc hướng đi, tốc độ và điểm quay đầu (direction, velocity and turning points)
+- Momentum Index oscillator: dùng để đo đạc hướng đi, tốc độ và điểm quay đầu (direction, velocity and turning points). Trong phương pháp này tôi đặt Momentum 12.
 
 Tóm lại: để setup được phương pháp này, cần 3 chỉ số đã nêu. Khoảng lặng của thị trường (sideway, low volatility) mà tôi tìm kiếm được xác định khi BB nằm trong KC. Điều đó cho thấy thị trường đang trong thời kỳ im lặng chờ đợi bùng nổ. Tín hiệu trade xuất hiện khi mà BB phá vỡ KC. Khi có tín hiệu xuất hiện rồi thì tôi sẽ dùng 1 oscillator Momentum index chu kỳ 12 để xác định lên long hay short. Khi này nếu oscillator > 0 tại thời điểm phá vỡ của BB => tôi sẽ long. ngược lại nếu oscillator < 0, tôi sẽ short. 
 
@@ -53,10 +53,12 @@ Ghi nhớ 1 điều, trong 1 ngày, cơ hội xuất hiện không nhiều. Nế
 ## Các setups tôi dùng
 Nói đến các setups có nghĩa là mong chờ có nhiều hơn 1 setup.
 ### Setup 1
-- Thiết lập biểu đồ 24h để các tín hiện qua đêm cũng được đưa vào. Đối với intraday, cài biểu đồ 5 phút.
+- Thiết lập biểu đồ 24h để các tín hiện qua đêm cũng được đưa vào. Đối với intraday, cài biểu đồ 5 phút. Biểu đồ 1 phút và 2 phút sẽ tốt cho scalping tuy nhiên tín hiệu không được mạnh như 5 phút.
+- Sử dụng các chỉ báo KC 20 1.5, BB 20 2.0, Momentum 12 close, Squeeze của LazyBear theo cấu hình mặc định.
 - Chỉ báo mũi tên màu đen gọi là heads-up là chỉ bảo cho biết BB đang nằm trong KC và thị trường đang sideway.
 - Chỉ báo tương tự nhưng màu xám xuất hiện ngay sau 1 series của màu đen là 1 chỉ báo cho biết BB đang nằm ngoài KC.
-- Khi mũi tên xám đầu tiên xuất hiện, nếu histogram > 0 => go long. Cho dù không phổ biến lắm nhưng vẫn có trường hợp khi xuất hiện gray thì momentum histogram vẫn ở dưới 0 (dù giảm dần), tín hiệu này cũng cấu thành được 1 lệnh long.
+- Khi mũi tên xám đầu tiên xuất hiện, nếu histogram > 0 => go long. Cho dù không phổ biến lắm nhưng vẫn có trường hợp khi xuất hiện gray thì momentum vẫn ở dưới 0 (dù có tăng dần), tín hiệu này cũng cấu thành được 1 lệnh long. Ngược lại, nếu
+- Trong các trường hợp tôi đều không dùng limit order mà dùng market order. Nói cách khác, khi có tín hiệu là tôi vào lệnh chứ không đợi giá để vào lệnh. Limit order là hình thức chỉ vào lệnh khi giá thỏa mãn điều kiện.
 - Đối với daytrader, thực hiện quản lý tiền như sau:
     - Xác định stop bằng cách sử dụng ATR14 sau đó gấp đôi giá trị hiện thời để làm stop.
     - Nếu vào lệnh tại 1104 trong khi daily pivot là 1101.75 -> stop sẽ dưới pivot 1 chút là 1101.50 (tức là 2.5 thay cho 2.0) -> xem xét daily pivot
