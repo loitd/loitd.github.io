@@ -5,6 +5,12 @@ tags: trading, book
 title: How to squeeze trading?
 ---
 
+Bất cứ phương pháp trade nào cần có các phần/giai đoạn sau:
+- Nhận biết thị trường/chờ đợi
+- Entry/Vào lệnh
+- Exit/Thoát lệnh
+
+Bất cứ giai đoạn nào yếu đều dẫn đến lợi nhuận không tốt đều dẫn đến lợi nhuận không có thậm chí lỗ.
 ## Mục đích squeeze
 Chúng ta đang không nói về việc overbought hay oversold, điều đó thực sự không mang lại nhiều ý nghĩa lắm, khi overbought cũng chẳng thể chắc để sell và ngược lại. Chúng ta đang nói về tình trạng của thị trường: 
 - Thị trường đang neutral
@@ -136,15 +142,15 @@ Tại điểm 1 ta có ATR = 0.0100 tương đương với 100 ticks => điểm 
 
 Nói cách khác, KC là 1 hình thức thể hiện của ATR trên đồ thị với 1 số biến đổi (như gấp 1.5 lần). Qua việc ứng dụng ATR có thể trở thành các điểm Resistant/Support mềm trên đồ thị với độ chính xác khá tương đối. Đối với cách ứng dụng KC, tôi (John) cũng sử dụng stop loss ngay ngoài đường biên của KC để tránh các thiệt hại đáng kể (tất nhiên lệnh nào cũng phải có stop). Ta có thể thấy điều này rất rõ trong phần squeeze khi John nói rằng, về cơ bản, lấy ATR *2 là stop loss.
 
-# Lướt sóng chuẩn (catching the wave)
-## Tại sao việc hiểu nguyên lý của anchor charts là cốt tử
+# Lướt sóng chuẩn - Hay cách thức để vào lệnh đủ sớm
+## Bộ lọc anchor charts
 Tôi đã quan sát squeeze trong 1 thời gian dài và không dùng thêm một bộ lọc cứng nào, tôi cảm thấy khá hài lòng với tỷ lệ P/L của squeeze dù rằng tất nhiên không phải mọi signal đều thành profit. Tôi phát hiện ra 1 số vấn đề như đối với các biểu đồ intraday, rõ ràng squeeze không ổn định (consistent) nhưng mà sự không ổn định ấy xảy ra không ngẫu nhiên mà thường theo quy luật như sau 1 block of trades (khoảng 2-3 trades) thì mới xuất hiện 1 signal thực sự tốt (có profit). Vậy phương án nào có thể xác định chính xác mẫu số này? Câu trả lời là anchor chart.
 
 Anchor chart là tiến trình mà ta thực hiện tham chiếu ở khung thời gian lớn hơn trước khi chính thức trade ở khung thời gian nhỏ hơn.
 
 Ví dụ: tôi đang dùng hourly chart làm anchor chart, nếu tại khung anchor này đang có bearish trend và mọi thứ đang đi xuống, tôi sẽ không tham gia long ở khung thời gian 5 phút dù có squeeze hay không.
 
-## Lướt sóng chuẩn
+## Các chỉ báo sóng
 Anh Rodney có đưa ra 3 loại sóng:
 - Sóng ngắn hạn: A Wave - đo trong khoảng 6 cây nến
 - Sóng trung hạn: B Wave - đo trong khoảng 15 cây nến
@@ -165,5 +171,9 @@ Hay nói cách khác, áp dụng waves và squeeze để có thể nhận biết
 
 ![squeeze-setup-waves]({{ site.baseurl }}/images/20210315/squeeze-setup-01-7.png)
 
-Nhìn biểu đồ trên, quy luật như sau, nếu như khi các chấm đen xuất hiện tại squeeze, các điểm 1,3,5, nếu như lúc đó waves đang lớn hơn 0 và có trend tăng thì 90% tiếp theo khi các điểm gray xuất hiện sẽ có lệnh long. Và ngược lại.
+Nhìn biểu đồ trên, quy luật như sau, nếu như khi các chấm đen xuất hiện tại squeeze, các điểm 1,3,5, nếu như lúc đó waves đang lớn hơn 0 và có trend tăng thì 90% tiếp theo sẽ có thể thực hiện lệnh long. Và ngược lại. Như vậy, nếu xuất hiện điểm đen mà với các waves như trên, anh John cũng sẽ thực hiện vào lệnh do nhiều khi, đợi khi squeeze xuất hiện thì cơ hội đã qua mất hoặc lợi nhuận không nhiều.
 
+# Làm sao để biết chính xác khi nào thoát lệnh mà không ăn non?
+Phần trên đã nói về cách vào lệnh đủ sớm, phần này sẽ nói về cách giữ lệnh đủ lâu để không ăn non.
+## Điểm vào lệnh thì dễ, cái ăn tiền là điểm thoát lệnh
+Trading không dễ, về cơ bản sẽ luôn có các cạm bẫy để đảm bảo bạn sẽ 
