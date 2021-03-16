@@ -153,3 +153,17 @@ Anh Rodney có đưa ra 3 loại sóng:
 Có 1 điểm tôi nhận ra, nếu như các chấm đen đầu tiên xuất hiện mà các waves đang ở trên mức 0 hoặc kể cả dưới mức 0 mà có trend tăng thì 90% khả năng là squeeze này sẽ theo lệnh long và ngược lại. Lưu ý là cả 3 sóng A, B và C đều phải chung trending tăng. Xem ví dụ sau:
 
 ![squeeze-setup-waves]({{ site.baseurl }}/images/20210315/squeeze-setup-01-5.png)
+
+Chart này là 1 ví dụ rất điển hình của loại setup mà tất cả đến cùng nhau - Porsche setup. 3 sóng A, B, C phải ở trạng thái đồng dạng - aligment tốt thì độ tin tưởng của tín hiệu càng tăng. Xem tiếp ví dụ sau:
+
+![squeeze-setup-waves]({{ site.baseurl }}/images/20210315/squeeze-setup-01-5.png)
+
+Ở ví dụ trên ta thấy, tại điểm 2, sóng A và B đã thống nhất nhưng sóng C lại ngược lại. Cuối cùng giao dịch thực hiện được tuy nhiên sóng rất ngắn, nói chung không thu được nhiều. Đây là điểm rất có lợi của sóng mà tôi nhìn nhận được, nếu là tôi khi gặp tín hiệu tại điểm 2, tôi sẽ xem sự biến động của ATR và sẽ không giao dịch. Đó là đi ngược xu thế countertrending.
+
+## Làm cách nào để sử dụng waves và có thể vào squeeze trước khi signal đên?
+Hay nói cách khác, áp dụng waves và squeeze để có thể nhận biết trước khi signal trên squeeze được fire off? Squeeze hoạt động rất tốt ở khung thời gian dài như daily, weekly, monthly tuy nhiên lại không thực sự consistent ở các khung nhỏ hơn. Điều này làm cho các swingtrader không thực sự thấy cần có filter trong khi các daytrader thì lại rất cần. Đây là phần giải thích chi tiết của lướt sóng chuẩn khi ta phối hợp waves với squeeze để có những dự đoán và vào lệnh sớm hơn (so với squeeze).
+
+![squeeze-setup-waves]({{ site.baseurl }}/images/20210315/squeeze-setup-01-7.png)
+
+Nhìn biểu đồ trên, quy luật như sau, nếu như khi các chấm đen xuất hiện tại squeeze, các điểm 1,3,5, nếu như lúc đó waves đang lớn hơn 0 và có trend tăng thì 90% tiếp theo khi các điểm gray xuất hiện sẽ có lệnh long. Và ngược lại.
+
