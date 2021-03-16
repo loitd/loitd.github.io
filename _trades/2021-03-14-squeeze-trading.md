@@ -138,3 +138,18 @@ Nói cách khác, KC là 1 hình thức thể hiện của ATR trên đồ thị
 
 # Lướt sóng chuẩn (catching the wave)
 ## Tại sao việc hiểu nguyên lý của anchor charts là cốt tử
+Tôi đã quan sát squeeze trong 1 thời gian dài và không dùng thêm một bộ lọc cứng nào, tôi cảm thấy khá hài lòng với tỷ lệ P/L của squeeze dù rằng tất nhiên không phải mọi signal đều thành profit. Tôi phát hiện ra 1 số vấn đề như đối với các biểu đồ intraday, rõ ràng squeeze không ổn định (consistent) nhưng mà sự không ổn định ấy xảy ra không ngẫu nhiên mà thường theo quy luật như sau 1 block of trades (khoảng 2-3 trades) thì mới xuất hiện 1 signal thực sự tốt (có profit). Vậy phương án nào có thể xác định chính xác mẫu số này? Câu trả lời là anchor chart.
+
+Anchor chart là tiến trình mà ta thực hiện tham chiếu ở khung thời gian lớn hơn trước khi chính thức trade ở khung thời gian nhỏ hơn.
+
+Ví dụ: tôi đang dùng hourly chart làm anchor chart, nếu tại khung anchor này đang có bearish trend và mọi thứ đang đi xuống, tôi sẽ không tham gia long ở khung thời gian 5 phút dù có squeeze hay không.
+
+## Lướt sóng chuẩn
+Anh Rodney có đưa ra 3 loại sóng:
+- Sóng ngắn hạn: A Wave - đo trong khoảng 6 cây nến
+- Sóng trung hạn: B Wave - đo trong khoảng 15 cây nến
+- Sóng dài hạn: C Wave - đo trong khoảng 30 cây nến
+
+Có 1 điểm tôi nhận ra, nếu như các chấm đen đầu tiên xuất hiện mà các waves đang ở trên mức 0 hoặc kể cả dưới mức 0 mà có trend tăng thì 90% khả năng là squeeze này sẽ theo lệnh long và ngược lại. Lưu ý là cả 3 sóng A, B và C đều phải chung trending tăng. Xem ví dụ sau:
+
+![squeeze-setup-waves]({{ site.baseurl }}/images/20210315/squeeze-setup-01-5.png)
