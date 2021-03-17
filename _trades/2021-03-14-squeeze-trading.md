@@ -184,3 +184,14 @@ Tôi sẽ thoát 1/2 lệnh tại điểm 2 khi thị trường mất momentum, 
 PP của tôi là tôi sẽ chỉ thoát lệnh khi nào có 2 cây đỏ liên tục đối với lệnh mua và ngược lại. 2 cây nến đỏ liên tục chứng tỏ đã có lực bán thực sự và có thể có sự đổi trend trên thị trường. 
 
 Đối với TTM Trendbar, tôi dùng nó và tối ưu nó để tìm điểm thoát lệnh chứ không phải tìm điểm vào lệnh. Tuy vậy theo tôi, đối với việc lấy 2 cây nến đỏ liên tiếp để lọc thì cũng không hết được đối với thị trường fx, do đó điều quan trọng là tâm lý chấp nhận các lệnh lỗ.
+
+Tóm lại, sẽ có rất nhiều các cây nến báo giả trong quá trình và hình thành các bẫy khiến traders bán tháo và thoát lệnh non. Đây là các yếu tố thị trường và không cách gì đảm bảo hoàn toàn được. Nói chung khi trade phải chấp nhận tính không toàn vẹn của cuộc chơi.
+
+Tuy anh John nói rằng anh không sử dụng scalping stoploss cho squeeze nhưng trong thực tế vẫn có thể sử dụng bình thường. Kết quả cuối cùng (được hay mất) là thước đo duy nhất. 
+
+## Một số habits tốt
+- Không giao dịch nhiều trong ngày. Tần suất đối với swing là vài lệnh 1 tháng, đối với intraday là 0-1 lệnh 1 ngày. Việc tiếp xúc quá nhiều với thị trường là rất không tốt.
+- Rất khó khăn, nghiêm khắc trong việc vào lệnh. Khó khăn này chính là bảo vệ tài chính của bạn. Giao dịch thành công nhất chính là không vào lệnh.
+- Chấp nhận sử dụng stoploss rộng. Đối với khung thời gian lớn, việc thị trường dập dình là bình thường và do đó cần có đủ không gian cho thị trường trước khi thu lợi nhuận. 
+- Đo kết quả giao dịch bằng R = Risk/Reward. Chỉ khi nào 1 đồng rủi ro thu 2-3 đồng lợi nhuận hoặc bạn chỉ cần thắng 4/10 lần trade (6 lần còn lại loss) mà bạn vẫn lãi thì mới được.
+- Ẩn thân do việc xuất hiện, tung hô có thể ảnh hưởng đến cảm xúc giao dịch. Việc tự tử của Jess Livermore chính là bài học nhãn tiền của việc được tung hô khi giao dịch.
