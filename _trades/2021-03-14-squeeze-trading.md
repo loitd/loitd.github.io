@@ -176,4 +176,11 @@ Nhìn biểu đồ trên, quy luật như sau, nếu như khi các chấm đen x
 # Làm sao để biết chính xác khi nào thoát lệnh mà không ăn non?
 Phần trên đã nói về cách vào lệnh đủ sớm, phần này sẽ nói về cách giữ lệnh đủ lâu để không ăn non.
 ## Điểm vào lệnh thì dễ, cái ăn tiền là điểm thoát lệnh
-Trading không dễ, về cơ bản sẽ luôn có các cạm bẫy để đảm bảo bạn sẽ 
+Trading không dễ, về cơ bản sẽ luôn có các cạm bẫy để đảm bảo bạn sẽ bán lại position của mình với giá rẻ mạt. Tôi nói chung sử dụng TTM TrendBar, 1 dạng đồ thị Heikin-Ashi bars, 1 loại đồ thị dựa vào 6 bars trước đó để đưa ra quyết định bullish hay bearish. Cụ thể là kỹ thuật này sẽ lấy giá trung bình của 6 cây trước đó, nếu giá này nằm ở nửa trên của khoảng trading thì cho cây bar màu xanh, đại diện cho bullish, ngược lại màu đỏ.
+Tôi sẽ thoát 1/2 lệnh tại điểm 2 khi thị trường mất momentum, đợi tiếp đến khi nào cây thứ 2 đổi màu tiếp, tôi sẽ thoát 1/2 còn lại.
+
+![squeeze-setup-waves]({{ site.baseurl }}/images/20210315/squeeze-setup-01-8.png)
+
+PP của tôi là tôi sẽ chỉ thoát lệnh khi nào có 2 cây đỏ liên tục đối với lệnh mua và ngược lại. 2 cây nến đỏ liên tục chứng tỏ đã có lực bán thực sự và có thể có sự đổi trend trên thị trường. 
+
+Đối với TTM Trendbar, tôi dùng nó và tối ưu nó để tìm điểm thoát lệnh chứ không phải tìm điểm vào lệnh. Tuy vậy theo tôi, đối với việc lấy 2 cây nến đỏ liên tiếp để lọc thì cũng không hết được đối với thị trường fx, do đó điều quan trọng là tâm lý chấp nhận các lệnh lỗ.
