@@ -195,3 +195,4 @@ Tuy anh John nói rằng anh không sử dụng scalping stoploss cho squeeze nh
 - Chấp nhận sử dụng stoploss rộng. Đối với khung thời gian lớn, việc thị trường dập dình là bình thường và do đó cần có đủ không gian cho thị trường trước khi thu lợi nhuận. 
 - Đo kết quả giao dịch bằng R = Risk/Reward. Chỉ khi nào 1 đồng rủi ro thu 2-3 đồng lợi nhuận hoặc bạn chỉ cần thắng 4/10 lần trade (6 lần còn lại loss) mà bạn vẫn lãi thì mới được.
 - Ẩn thân do việc xuất hiện, tung hô có thể ảnh hưởng đến cảm xúc giao dịch. Việc tự tử của Jess Livermore chính là bài học nhãn tiền của việc được tung hô khi giao dịch.
+- Practice makes perfect: muốn thành chuyên gia phải thực hành, thực hành tất cả mọi thứ.
