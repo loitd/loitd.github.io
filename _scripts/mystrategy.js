@@ -12,13 +12,14 @@
 // - Stop bằng đỉnh đáy gần nhất
 // - Target bằng Stop * 2
 // - Chấp nhận slippage=2
-// - Một ngày chỉ trade tối đa 1 lệnh.
+// - Một tuần chỉ trade tối đa 1 lệnh.
 
 //@version=3
 // STEP 1. Define strategy settings
 strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_value=0.01, pyramiding=0, slippage=2)
-
-tf_anchor1 = input(title="Anchor 1 timeframe", type=resolution, defval="4H")
+// Actually the highest supported minute resolution is “1440” (which is the number of minutes in 24 hours).
+// Requesting data of "1h" or "1H" resolution would result in an error. Use "60" instead.
+tf_anchor1 = input(title="Anchor 1 timeframe", type=resolution, defval="240")
 tf_anchor2 = input(title="Anchor 2 timeframe", type=resolution, defval="1D")
 
 ema1_len = input(title="EMA1 Length", type=integer, defval=7)
@@ -39,8 +40,8 @@ backtestWindow = time < (timenow - 86400000 * 90)
 
 // STEP 3. Determine long trading conditions
 enterLong = crossover(ema1, ema2) and crossover(ema1_ac1, ema2_ac1) and crossover(ema1_ac2, ema2_ac2) and backtestWindow
-// implement the time stop that has us close trades after 8 bars
-exitLong = (barssince(enterLong) > 6)
+// implement the time stop that has us close trades after 8 bars. Always exit without checking backtestwindow
+exitLong = (barssince(enterLong) > 8)
 
 // STEP 4. Code short trading conditions
 
