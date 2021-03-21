@@ -16,7 +16,7 @@
 
 //@version=4
 // STEP 1. Define strategy settings. default_qty_value tối thiểu = 1, nếu nhỏ hơn sẽ không có trade nào.
-strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_value=1, pyramiding=0, slippage=2, calc_on_every_tick=true)
+strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=5, pyramiding=0, slippage=2, calc_on_every_tick=true)
 // Actually the highest supported minute resolution is “1440” (which is the number of minutes in 24 hours).
 // Requesting data of "1h" or "1H" resolution would result in an error. Use "60" instead.
 tf_anchor1 = input(title="Anchor 1 timeframe", type=input.resolution, defval="240")
