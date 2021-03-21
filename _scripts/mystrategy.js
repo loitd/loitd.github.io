@@ -16,6 +16,7 @@
 
 //@version=4
 // STEP 1. Define strategy settings. default_qty_value tối thiểu = 1, nếu nhỏ hơn sẽ không có trade nào.
+// calc_on_every_tick = TRUE: để đảm bảo tính hết các trường hợp có 1 thời điểm nhất định giá tụt/tăng rất sâu/cao sau đó lại hồi về. Nếu chỉ tính giá đóng cửa sẽ không sát thực tế.
 strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=5, pyramiding=0, slippage=2, calc_on_every_tick=true)
 // Actually the highest supported minute resolution is “1440” (which is the number of minutes in 24 hours).
 // Requesting data of "1h" or "1H" resolution would result in an error. Use "60" instead.
@@ -25,10 +26,6 @@ ma1_len = input(title="MA1 Len", type=input.integer, defval=13, minval=1, maxval
 ma2_len = input(title="MA2 Len", type=input.integer, defval=21, minval=1, maxval=9999)
 ma3_len = input(title="MA3 Len", type=input.integer, defval=34, minval=1, maxval=9999)
 ma4_len = input(title="MA4 Len", type=input.integer, defval=89, minval=1, maxval=9999)
-
-// swing stop loss
-sw_sl = atr(14)
-sw_tp = sw_sl * 2
 
 // tradeDirection = input(title="Trade Direction", options=["Long", "Short", "Both"], defval="Both")
 // Options that configure the backtest date range
@@ -76,8 +73,8 @@ counter = 0
 emaFast = ma1ac1
 emaSlow = ma2ac1
 // With that five day gap we account for days when the market is closed
-//               the bar's time    1 day       1w   8weeks
-backtestWindow = time > (timenow - 86400000 *  7    * 8)
+//               the bar's time    1 day       1w   10weeks
+backtestWindow = time > (timenow - 86400000 *  7    * 10)
 //Conservative Entry True/False Condition -> xác định điểm vào lệnh theo tín hiệu close crossover với ema.
 // Long khi emafase > emaslow + close trước và close hiện tại cắt đường emafast. Short khi ngược lại.
 // tương đối giống với việc phá bollinger bands. Bổ sung thêm điều kiện UpTrend
@@ -91,13 +88,13 @@ entryDnTrend = downTrend and (emaFast < emaSlow) and (close[1] > emaFast) and (c
 // implement the time stop that has us close trades after 8 bars. Always exit without checking backtestwindow
 // exitLong = (barssince(enterLong) > 8)
 // enterLong = crossover(fast_ac1, slow_ac1) and backtestWindow
-enterLong = entryUpTrend and backtestWindow 
+enterLong = entryUpTrend and backtestWindow and (strategy.position_size == 0)
 // exitLong = (strategy.position_size > 0) and (crossunder(fast, slow) or (barssince(enterLong) > 3))
 exitLong = (strategy.position_size > 0) 
 
 // STEP 4. Code short trading conditions
 // enterShort = crossunder(fast_ac1, slow_ac1) and backtestWindow
-enterShort = entryDnTrend and backtestWindow 
+enterShort = entryDnTrend and backtestWindow and (strategy.position_size == 0)
 // exitShort = (strategy.position_size < 0) and (crossover(fast, slow) or (barssince(enterShort) > 3))
 exitShort = (strategy.position_size < 0) 
 
@@ -115,10 +112,6 @@ plotarrow(codiff2*-1 ? codiff2*-1 : na, title="Down Entry Arrow", colordown=colo
 //Trend Triangles at Top and Bottom of Screen
 plotshape(upTrend ? upTrend : na, title="Conservative Buy Entry Triangle",style=shape.triangleup, location=location.bottom, color=color.lime, transp=0, offset=0)
 plotshape(downTrend ? downTrend : na, title="Conservative Short Entry Triangle",style=shape.triangledown, location=location.top, color=color.red, transp=0, offset=0)
-// plot sl & tp levels
-p1 = plot(enterLong ? low - sw_sl : na, title="SL", style=plot.style_linebr, linewidth=4, color=color.red)
-p2 = plot(enterLong ? close + sw_tp : na, title="TP", style=plot.style_linebr, linewidth=2, color=color.red)
-fill(p1, p2, color=color.silver, transp=50)
 //Moving Average Plots and Fill
 col = emaFast > emaSlow ? color.lime : emaFast < emaSlow ? color.red : color.yellow
 p3 = plot(emaSlow, title="Slow MA", style=plot.style_linebr, linewidth=1, color=col)
@@ -129,14 +122,38 @@ fill(p3, p4, color=color.silver, transp=88)
 // bgColour = enterLong ? green : enterShort ? red : na
 // bgcolor(color=bgColour, transp=90)
 
+// RISK MANAGEMENT
+// swing stop loss
+sw_sl = atr(63)
+// highestHigh = abs(highest(high, 7) - strategy.position_avg_price) // highestHigh in last 7 candles
+// lowestLow = abs(lowest(low, 7) - strategy.position_avg_price) //last 7 candles
+sw_tp = sw_sl * 2
+long_sl = strategy.position_avg_price - sw_sl
+long_tp = strategy.position_avg_price + sw_tp
+short_sl = strategy.position_avg_price + sw_sl
+short_tp = strategy.position_avg_price - sw_tp
+// long_sl = strategy.position_avg_price * 0.99
+// long_tp = strategy.position_avg_price * 1.02
+// short_sl = strategy.position_avg_price * 1.01
+// short_tp = strategy.position_avg_price * 0.98
+
 // STEP 6. Submit entry orders
 strategy.entry(id="eL", long=true, when=enterLong) //, stop=sw_sl, limit=sw_tp
 strategy.entry(id="eS", long=false, when=enterShort)
+
+// plot sl & tp levels. 
+// There's a nice benefit to strategy.position_avg_price. When our strategy scales in or out of a position, then the strategy.position_avg_price variable updates to reflect the then-current entry price. When that happens our stop prices automatically update as well. And that way our stops remain at the correct level, even with multiple entries and exits.
+l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_cross, linewidth=3, color=color.red)
+l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_cross, linewidth=3, color=color.lime)
+fill(l1, l2, color=color.silver, transp=68)
+s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_cross, linewidth=3, color=color.red)
+s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_cross, linewidth=3, color=color.lime)
+fill(s1, s2, color=color.silver, transp=68)
 
 // STEP 7. Submit exit orders
 //short default amount of lots that have been long before
 // strategy.order(id="xL", long=false, when=exitLong)
 // strategy.order(id="xS", long=true, when=exitShort)
-strategy.exit(id="xL", from_entry="eL", limit=sw_tp, stop=sw_sl, when=exitLong)
-strategy.exit(id="xS", from_entry="eS", limit=sw_tp, stop=sw_sl, when=exitShort)
+strategy.exit(id="xL", from_entry="eL", limit=long_tp, stop=long_sl, when=exitLong)
+strategy.exit(id="xS", from_entry="eS", limit=short_tp, stop=short_sl, when=exitShort)
 
