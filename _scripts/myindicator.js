@@ -53,7 +53,20 @@ plotshape( isUPTrend ? isUPTrend : na, style=shape.triangleup, color = color.lim
 plotshape( isDOWNTrend ? isDOWNTrend : na, style=shape.triangledown, color = color.red, location=location.belowbar, size = size.small)
 
 // plot MAs
-scolor = uptrendac2 ? color.lime : downtrendac2 ? color.red : color.blue
-plot(ma1, title="Fast MA", color=scolor, style=plot.style_circles, linewidth=1)
-plot(ma2, title="Medium MA",color=scolor, style=plot.style_circles, linewidth=2)
-plot(ma3, title="Slow MA", color=scolor, style=plot.style_circles, linewidth=3)
+// scolor = uptrendac2 ? color.lime : downtrendac2 ? color.red : color.blue
+// plot(ma1, title="Fast MA", color=scolor, style=plot.style_circles, linewidth=1)
+// plot(ma2, title="Medium MA",color=scolor, style=plot.style_circles, linewidth=2)
+// plot(ma3, title="Slow MA", color=scolor, style=plot.style_circles, linewidth=3)
+
+fastLength = input(12, minval=1), 
+slowLength=input(26,minval=1)
+signalLength=input(9,minval=1)
+fastMA = ema(close, fastLength)
+slowMA = ema(close, slowLength)
+macd = fastMA - slowMA
+signal = sma(macd, signalLength)
+hist = macd - signal
+macd_long = crossover(signal, macd)
+macd_short = crossunder(signal, macd)
+plotchar(macd_long and isUPTrend ? isUPTrend : na, title="UP", offset=0, char='↑', location=location.absolute, color=color.lime)
+plotchar(macd_short and isDOWNTrend ? isDOWNTrend : na, title="DOWN", offset=0, char='↓', location=location.absolute, color=color.red)
