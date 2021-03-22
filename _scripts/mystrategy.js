@@ -123,6 +123,8 @@ backtestWindow = time > (timenow - 86400000 *  7    * 100)
 entryUpTrend = upTrend and sqzOff and shadedRed ? 1 : 0
 entryDnTrend = downTrend and sqzOff and shadedGreen ? 1 : 0
 
+// Entry by Price Actions
+
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions
 // implement the time stop that has us close trades after 8 bars. Always exit without checking backtestwindow
