@@ -17,9 +17,9 @@
 //@version=4
 // STEP 1. Define strategy settings. default_qty_value tối thiểu = 1, nếu nhỏ hơn sẽ không có trade nào.
 // calc_on_every_tick = TRUE: để đảm bảo tính hết các trường hợp có 1 thời điểm nhất định giá tụt/tăng rất sâu/cao sau đó lại hồi về. Nếu chỉ tính giá đóng cửa sẽ không sát thực tế.
-// cho cả giá commission khá cao, để yêu cầu strategy phải thật sự tốt mới có khả năng đáp ứng.
+// cho cả giá commission khá cao, để yêu cầu strategy phải thật sự tốt mới có khả năng đáp ứng. Tuy nhiên khi đưa vào thì hiệu quả của strategy được tính không đúng.
 // default_qty_value = 1/100 tổng vốn.
-strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=10, pyramiding=0, slippage=2, calc_on_every_tick=true, commission_type=strategy.commission.cash_per_order, commission_value=4)
+strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=10, pyramiding=0, slippage=2, calc_on_every_tick=true)
 // Actually the highest supported minute resolution is “1440” (which is the number of minutes in 24 hours).
 // Requesting data of "1h" or "1H" resolution would result in an error. Use "60" instead.
 tf_anchor1 = input(title="Anchor 1 timeframe", type=input.resolution, defval="240")
@@ -164,7 +164,7 @@ fill(p3, p4, color=color.silver, transp=88)
 
 // ----------------------------------------------------------------------------------------------------------
 // RISK MANAGEMENT
-rr_base = atr(63)
+rr_base = atr(89)
 // swing stop loss
 sw_sl = rr_base * 1.5
 // highestHigh = abs(highest(high, 7) - strategy.position_avg_price) // highestHigh in last 7 candles
