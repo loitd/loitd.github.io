@@ -1,6 +1,13 @@
 // Created by Robert N. 030715
 // Updated 031115
 // Candle labels
+// I decided to republish this one without the trend filter and with all the major symbols active. This will allow for all the patterns to show up.
+// Due to 15 different candlestick formations in this one script, it will be difficult to turn off the last few due to screen size. You can turn off individual patterns on the settings screen.
+// I have everything spelled out except the hammer and inverted hammer . They are "H" and "IH" respectively on the charts. They show up so often that they cluttered the charts.
+
+// The default script has: Doji , Evening Star , Morning Star , Shooting Star , Hammer , Inverted Hammer , Bearish Harami, Bullish Harami, Bearish Engulfing , Bullish Engulfing , Piercing Line, Bullish Belt, Bullish Kicker, Bearish Kicker, Hanging man , and Dark Cloud Cover. You can turn off what you don't like. The Piercing Line, Bullish Belt, and the Kickers will usually show up better in the daily charts .
+
+// I recommend watching videos with Stephen Bigalow to get a feel for how to trade these. You will want to add an 8 EMA to your chart with his setups. Enjoy.
 study(title = "Candles", overlay = true)
 
 DojiSize = input(0.05, minval=0.01, title="Doji size")
