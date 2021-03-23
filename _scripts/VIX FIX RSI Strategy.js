@@ -43,7 +43,7 @@ sa3 = input(false, title="Show Alert WVF Filtered?")
 sa4 = input(false, title="Show Alert WVF AGGRESSIVE Filter?")
 
 //Williams Vix Fix Formula
-wvf = ((highest(close, pd)-low)/(highest(close, pd)))*100
+wvf = ((highest(close, pd)-low)/(highexxdst(close, pd)))*100
 sDev = mult * stdev(wvf, bbl)
 midLine = sma(wvf, bbl)
 lowerBand = midLine - sDev

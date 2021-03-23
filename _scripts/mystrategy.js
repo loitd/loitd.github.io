@@ -28,11 +28,7 @@ ma1_len = input(title="MA1 Len", type=input.integer, defval=13, minval=1, maxval
 ma2_len = input(title="MA2 Len", type=input.integer, defval=21, minval=1, maxval=9999)
 ma3_len = input(title="MA3 Len", type=input.integer, defval=34, minval=1, maxval=9999)
 ma4_len = input(title="MA4 Len", type=input.integer, defval=55, minval=1, maxval=9999)
-// Squeeze declare
-length = input(21, title="BB Length")
-mult = input(2.0,title="BB MultFactor")
-lengthKC=input(21, title="KC Length")
-multKC = input(1.5, title="KC MultFactor")
+
 
 // tradeDirection = input(title="Trade Direction", options=["Long", "Short", "Both"], defval="Both")
 // Options that configure the backtest date range
@@ -83,6 +79,11 @@ emaFast = ma1ac1
 emaSlow = ma2ac1
 
 // SQUEEZE Calculations
+// Squeeze declare
+length = input(21, title="BB Length")
+mult = input(2.0,title="BB MultFactor")
+lengthKC=input(21, title="KC Length")
+multKC = input(1.5, title="KC MultFactor")
 // histogram
 val = linreg(close - avg(avg(highest(high, lengthKC), lowest(low, lengthKC)),sma(close,lengthKC)), lengthKC,0)
 shadedRed = (val < 0) and (val > nz(val[1])) //choose shaded red when long
@@ -104,43 +105,41 @@ sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC) //no order when squeeze on
 sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff
 noSqz  = (sqzOn == false) and (sqzOff == false)
 
-
 // With that five day gap we account for days when the market is closed
 //               the bar's time    1 day       1w   10weeks
 backtestWindow = time > (timenow - 86400000 *  7    * 144)
 
 // ----------------------------------------------------------------------------------------------------------
-// XÁC ĐỊNH ENTRY cho UPTREND và DOWNTREND
+// ENTRY by EMAs cross/break
 // Entry by EMAs -> xác định điểm vào lệnh theo tín hiệu close crossover với ema.
 // Long khi emafase > emaslow + close trước và close hiện tại cắt đường emafast. Short khi ngược lại.
 // tương đối giống với việc phá bollinger bands. Bổ sung thêm điều kiện UpTrend
 // Tìm phương án bổ sung thêm điều kiện lastkiss để hình thành lastkisstrade
-entryUp1 = upTrend and (emaFast > emaSlow) and (close[1] < emaFast) and (close > emaFast) ? 1 : 0
-entryDn1 = downTrend and (emaFast < emaSlow) and (close[1] > emaFast) and (close < emaFast) ? 1 : 0
+entryUP1 = upTrend and (emaFast > emaSlow) and (close[1] < emaFast) and (close > emaFast) ? 1 : 0
+entryDN1 = downTrend and (emaFast < emaSlow) and (close[1] > emaFast) and (close < emaFast) ? 1 : 0
 
-// Entry by squeeze histogram:
+// Entry by Squeeze histogram and EMATrends:
 // - 72% cho setup AUDUSD 30M AC1: 1H AC2: 4H ma4: 55 BB: 21 KC: 21
 // - 76% cho setup GBPUSD 30M AC1: 1H AC2: 4H ma4: 55 BB: 21 KC: 21
 // - 63% cho setup EURUSD 30M AC1: 1H AC2: 4H ma4: 55 BB: 21 KC: 21
-entryUp2 = upTrend and sqzOff and shadedRed ? 1 : 0
-entryDn2 = downTrend and sqzOff and shadedGreen ? 1 : 0
+entryUP2 = upTrend and sqzOff and shadedRed ? 1 : 0
+entryDN2 = downTrend and sqzOff and shadedGreen ? 1 : 0
 
-// Entry by Price Actions
-
-
-
+// SET the active entry algorithm
+entryUP = entryUP2
+entryDN = entryDN2
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions
 // implement the time stop that has us close trades after 8 bars. Always exit without checking backtestwindow
 // exitLong = (barssince(enterLong) > 8)
 // enterLong = crossover(fast_ac1, slow_ac1) and backtestWindow
-enterLong = entryUp2 and backtestWindow and (strategy.position_size == 0)
+enterLong = entryUP and backtestWindow and (strategy.position_size == 0)
 // exitLong = (strategy.position_size > 0) and (crossunder(fast, slow) or (barssince(enterLong) > 3))
 exitLong = (strategy.position_size > 0) 
 
 // STEP 4. Code short trading conditions
 // enterShort = crossunder(fast_ac1, slow_ac1) and backtestWindow
-enterShort = entryDn2 and backtestWindow and (strategy.position_size == 0)
+enterShort = entryDN and backtestWindow and (strategy.position_size == 0)
 // exitShort = (strategy.position_size < 0) and (crossover(fast, slow) or (barssince(enterShort) > 3))
 exitShort = (strategy.position_size < 0) 
 // ----------------------------------------------------------------------------------------------------------
@@ -180,10 +179,6 @@ long_sl = strategy.position_avg_price - sw_sl
 long_tp = strategy.position_avg_price + sw_tp
 short_sl = strategy.position_avg_price + sw_sl
 short_tp = strategy.position_avg_price - sw_tp
-// long_sl = strategy.position_avg_price * 0.99
-// long_tp = strategy.position_avg_price * 1.02
-// short_sl = strategy.position_avg_price * 1.01
-// short_tp = strategy.position_avg_price * 0.98
 // ----------------------------------------------------------------------------------------------------------
 
 // STEP 6. Submit entry orders
@@ -205,6 +200,5 @@ fill(s1, s2, color=color.silver, transp=89)
 // strategy.order(id="xS", long=true, when=exitShort)
 strategy.exit(id="xL", from_entry="eL", limit=long_tp, stop=long_sl, when=exitLong)
 strategy.exit(id="xS", from_entry="eS", limit=short_tp, stop=short_sl, when=exitShort)
-
 // ----------------------------------------------------------------------------------------------------------
 
