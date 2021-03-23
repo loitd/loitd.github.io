@@ -71,6 +71,8 @@ plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordow
 plot( SRSIOverBought or SRSIOverSold ? high : na, title="SRSI", style=plot.style_cross, color=color.lime, linewidth=2 )
 plot( SRSIUPTrend ? high + 34*syminfo.mintick : na, title="SRSI UP Trend", style=plot.style_linebr, color=color.blue, linewidth=1 )
 plot( SRSIDNTrend ? low - 34*syminfo.mintick : na, title="SRSI DOWN Trend", style=plot.style_linebr, color=color.orange, linewidth=1 )
+plot( shadedRed ? high + 55*syminfo.mintick : na, title="SQueeze UP Trend", style=plot.style_circles, color=color.blue, linewidth=1 )
+plot( shadedGreen ? low - 55*syminfo.mintick : na, title="SQueeze DOWN Trend", style=plot.style_circles, color=color.orange, linewidth=1 )
 // ----------------------------------------------------------------------------------------------------------
 // RISK MANAGEMENT
 rr_base = atr(89)
