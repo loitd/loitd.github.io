@@ -22,16 +22,16 @@
 strategy(title="Leo_Strategy", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=10, pyramiding=0, slippage=2, calc_on_every_tick=true)
 // Actually the highest supported minute resolution is “1440” (which is the number of minutes in 24 hours).
 // Requesting data of "1h" or "1H" resolution would result in an error. Use "60" instead.
-tf_anchor1 = input(title="Anchor 1 timeframe", type=input.resolution, defval="240")
-tf_anchor2 = input(title="Anchor 2 timeframe", type=input.resolution, defval="1D")
+tf_anchor1 = input(title="Anchor 1 timeframe", type=input.resolution, defval="60")
+tf_anchor2 = input(title="Anchor 2 timeframe", type=input.resolution, defval="240")
 ma1_len = input(title="MA1 Len", type=input.integer, defval=13, minval=1, maxval=9999)
 ma2_len = input(title="MA2 Len", type=input.integer, defval=21, minval=1, maxval=9999)
 ma3_len = input(title="MA3 Len", type=input.integer, defval=34, minval=1, maxval=9999)
-ma4_len = input(title="MA4 Len", type=input.integer, defval=89, minval=1, maxval=9999)
+ma4_len = input(title="MA4 Len", type=input.integer, defval=55, minval=1, maxval=9999)
 // Squeeze declare
-length = input(20, title="BB Length")
+length = input(21, title="BB Length")
 mult = input(2.0,title="BB MultFactor")
-lengthKC=input(20, title="KC Length")
+lengthKC=input(21, title="KC Length")
 multKC = input(1.5, title="KC MultFactor")
 
 // tradeDirection = input(title="Trade Direction", options=["Long", "Short", "Both"], defval="Both")
@@ -44,6 +44,7 @@ multKC = input(1.5, title="KC MultFactor")
 // STEP 2. Calculate strategy values
 // EMAs Calculations
 deftrend(ma1, ma2, ma3, ma4, rema) => 
+    // trend def using slingshot algorithm
     upper = ma4 + rema * 0.5
     lower = ma4 - rema * 0.5
     uptrend = (ma1 > upper and ma2 > upper and ma3 > upper)
@@ -74,9 +75,9 @@ ma4ac2 = security(syminfo.tickerid, tf_anchor2, ma4)
 remaac2 = security(syminfo.tickerid, tf_anchor2, rema)
 [uptrendac2, downtrendac2] = deftrend(ma1ac2, ma2ac2, ma3ac2, ma4ac2, remaac2)
 
+// Trend def using slingshot with anchor timeframes
 upTrend = (uptrend and uptrendac1 and uptrendac2)
 downTrend = (downtrend and downtrendac1 and downtrendac2)
-counter = 0
 
 emaFast = ma1ac1
 emaSlow = ma2ac1
@@ -92,14 +93,12 @@ basis = sma(source, length)
 dev = multKC * stdev(source, length)
 upperBB = basis + dev
 lowerBB = basis - dev
-
 // Calculate KC
 ma = sma(source, lengthKC)
 range = tr
 rangema = sma(range, lengthKC)
 upperKC = ma + rangema * multKC
 lowerKC = ma - rangema * multKC
-
 // squeeze or not?
 sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC) //no order when squeeze on
 sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff
@@ -108,7 +107,7 @@ noSqz  = (sqzOn == false) and (sqzOff == false)
 
 // With that five day gap we account for days when the market is closed
 //               the bar's time    1 day       1w   10weeks
-backtestWindow = time > (timenow - 86400000 *  7    * 100)
+backtestWindow = time > (timenow - 86400000 *  7    * 144)
 
 // ----------------------------------------------------------------------------------------------------------
 // XÁC ĐỊNH ENTRY cho UPTREND và DOWNTREND
@@ -116,27 +115,32 @@ backtestWindow = time > (timenow - 86400000 *  7    * 100)
 // Long khi emafase > emaslow + close trước và close hiện tại cắt đường emafast. Short khi ngược lại.
 // tương đối giống với việc phá bollinger bands. Bổ sung thêm điều kiện UpTrend
 // Tìm phương án bổ sung thêm điều kiện lastkiss để hình thành lastkisstrade
-// entryUpTrend = upTrend and (emaFast > emaSlow) and (close[1] < emaFast) and (close > emaFast) ? 1 : 0
-// entryDnTrend = downTrend and (emaFast < emaSlow) and (close[1] > emaFast) and (close < emaFast) ? 1 : 0
+entryUp1 = upTrend and (emaFast > emaSlow) and (close[1] < emaFast) and (close > emaFast) ? 1 : 0
+entryDn1 = downTrend and (emaFast < emaSlow) and (close[1] > emaFast) and (close < emaFast) ? 1 : 0
 
-// Entry by squeeze histogram
-entryUpTrend = upTrend and sqzOff and shadedRed ? 1 : 0
-entryDnTrend = downTrend and sqzOff and shadedGreen ? 1 : 0
+// Entry by squeeze histogram:
+// - 72% cho setup AUDUSD 30M AC1: 1H AC2: 4H ma4: 55 BB: 21 KC: 21
+// - 76% cho setup GBPUSD 30M AC1: 1H AC2: 4H ma4: 55 BB: 21 KC: 21
+// - 63% cho setup EURUSD 30M AC1: 1H AC2: 4H ma4: 55 BB: 21 KC: 21
+entryUp2 = upTrend and sqzOff and shadedRed ? 1 : 0
+entryDn2 = downTrend and sqzOff and shadedGreen ? 1 : 0
 
 // Entry by Price Actions
+
+
 
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions
 // implement the time stop that has us close trades after 8 bars. Always exit without checking backtestwindow
 // exitLong = (barssince(enterLong) > 8)
 // enterLong = crossover(fast_ac1, slow_ac1) and backtestWindow
-enterLong = entryUpTrend and backtestWindow and (strategy.position_size == 0)
+enterLong = entryUp2 and backtestWindow and (strategy.position_size == 0)
 // exitLong = (strategy.position_size > 0) and (crossunder(fast, slow) or (barssince(enterLong) > 3))
 exitLong = (strategy.position_size > 0) 
 
 // STEP 4. Code short trading conditions
 // enterShort = crossunder(fast_ac1, slow_ac1) and backtestWindow
-enterShort = entryDnTrend and backtestWindow and (strategy.position_size == 0)
+enterShort = entryDn2 and backtestWindow and (strategy.position_size == 0)
 // exitShort = (strategy.position_size < 0) and (crossover(fast, slow) or (barssince(enterShort) > 3))
 exitShort = (strategy.position_size < 0) 
 // ----------------------------------------------------------------------------------------------------------
@@ -158,7 +162,7 @@ plotshape(downTrend ? downTrend : na, title="Conservative Short Entry Triangle",
 col = emaFast > emaSlow ? color.lime : emaFast < emaSlow ? color.red : color.yellow
 p3 = plot(emaSlow, title="Slow MA", style=plot.style_linebr, linewidth=1, color=col)
 p4 = plot(emaFast, title="Slow MA", style=plot.style_linebr, linewidth=1, color=col)
-fill(p3, p4, color=color.silver, transp=88)
+fill(p3, p4, color=color.silver, transp=89)
 
 // plot(series=fastMA, color=(fastMA > slowMA) ? green : red, linewidth=2, title="Fast EMA")
 // bgColour = enterLong ? green : enterShort ? red : na
@@ -190,10 +194,10 @@ strategy.entry(id="eS", long=false, when=enterShort)
 // There's a nice benefit to strategy.position_avg_price. When our strategy scales in or out of a position, then the strategy.position_avg_price variable updates to reflect the then-current entry price. When that happens our stop prices automatically update as well. And that way our stops remain at the correct level, even with multiple entries and exits.
 l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_cross, linewidth=3, color=color.red)
 l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_cross, linewidth=3, color=color.lime)
-fill(l1, l2, color=color.silver, transp=68)
+fill(l1, l2, color=color.silver, transp=89)
 s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_cross, linewidth=3, color=color.red)
 s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_cross, linewidth=3, color=color.lime)
-fill(s1, s2, color=color.silver, transp=68)
+fill(s1, s2, color=color.silver, transp=89)
 
 // STEP 7. Submit exit orders
 //short default amount of lots that have been long before
