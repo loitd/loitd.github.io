@@ -1,3 +1,6 @@
+// Tính chất: khung 4h, target P/L: 60/40, PNL Rate: 1.5, chỉ số: BTCUSD, ETHUSD với tần suất 1 tuần (1 ngày?) 1 lệnh
+// Mục tiêu: lợi nhuận 30% vốn/tháng -> 1 tuần 1 lệnh -> 10% vốn 1 lệnh
+
 //@version=4
 strategy(title="Leo_Strategy_2", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=10, pyramiding=0, slippage=2, calc_on_every_tick=true)
 // SQUEEZE Calculations
@@ -10,6 +13,8 @@ multKC = input(1.5, title="KC MultFactor")
 val = linreg(close - avg(avg(highest(high, lengthKC), lowest(low, lengthKC)),sma(close,lengthKC)), lengthKC,0)
 shadedRed = (val < 0) and (val > nz(val[1])) //choose shaded red when long
 shadedGreen = (val > 0) and (val < nz(val[1])) //choose shaded green when short
+lightRed = (val < 0) and (val <= nz(val[1]))
+lightGreen = (val > 0) and (val >= nz(val[1]))
 // Calculate BB
 source = close
 basis = sma(source, length)
@@ -22,9 +27,9 @@ range = tr
 rangema = sma(range, lengthKC)
 upperKC = ma + rangema * multKC
 lowerKC = ma - rangema * multKC
-// squeeze or not?
+// squeeze or not? Nguyên tắc chung là không trade tại thời điểm Squeeze do tt không có định hướng rõ ràng và có thể dẫn tới nhiều biến động bất thường.
 sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC) //no order when squeeze on
-sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff
+sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff -> Có xu hướng rõ ràng
 noSqz  = (sqzOn == false) and (sqzOff == false)
 
 // StochRSI Calculations
@@ -40,18 +45,16 @@ d = sma(k, smoothD)
 // Crossover = cắt dưới lên, Crossunder = cắt trên xuống
 SRSIOverBought = crossunder(k,d) ? 1 : 0
 SRSIOverSold = crossover(k,d) ? 1 : 0
-SRSIUPTrend = k > d and k > 50 ? 1 : 0
-SRSIDNTrend = k < d and k < 50 ? 1 : 0
 
 // With that five day gap we account for days when the market is closed
 //               the bar's time    1 day       1w   10weeks
-backtestWindow = time > (timenow - 86400000 *  7    * 144)
+backtestWindow = time > (timenow - 86400000 *  7    * 10)
 
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
 // Entry by Squeeze historgram shading and StochRSI
-entryUP3 = shadedRed and SRSIUPTrend
-entryDN3 = shadedGreen and SRSIDNTrend
+entryUP3 = shadedRed and shadedRed[1]
+entryDN3 = shadedGreen and shadedGreen[1] 
 
 // SET the active entry algorithm
 entryUP = entryUP3
@@ -103,9 +106,13 @@ strategy.entry(id="eS", long=false, comment="eS", when=enterShort)
 // s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_cross, linewidth=3, color=color.lime)
 // fill(s1, s2, color=color.silver, transp=89)
 
-// STEP 7. Submit exit orders
-// strategy.exit(id="xL", from_entry="eL", stop=long_sl, when=exitLong)
-// strategy.exit(id="xS", from_entry="eS", stop=short_sl, when=exitShort)
+// STEP 7. Submit Money Management
+
+// Exit orders - Nếu chỉ chỉ định stoploss mà k chỉ đinh limitprofit thì lệnh sẽ chỉ thoát khi stoploss. When ở đây không phải điều kiện thoát lệnh mà chỉ là điều kiện xem xét cho stoploss và takeprofit. Vì lý do đó, có thể cân nhắc dùng cả close và exit để vừa có điều kiện thoát lệnh when vừa có stoploss & limitprofit.
+strategy.exit(id="xL", from_entry="eL", limit=long_tp, stop=long_sl, when=exitLong, comment="xL-exit")
+strategy.exit(id="xS", from_entry="eS", limit=short_tp, stop=short_sl, when=exitShort, comment="xS-exit")
+
+// Lệnh close không đặt được stoploss hay limitprofit, tuy nhiên When là điều kiện thoát lệnh cuối cùng.
 strategy.close(id="eL", when=exitLong, comment="xL-close")
 strategy.close(id="eS", when=exitShort, comment="xS-close")
 // ----------------------------------------------------------------------------------------------------------
