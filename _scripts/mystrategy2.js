@@ -32,47 +32,47 @@ sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC) //no order when squeeze on
 sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff -> Có xu hướng rõ ràng
 noSqz  = (sqzOn == false) and (sqzOff == false)
 //Histogram cross zero?
-isHisCrossZero = (val <= 0.0005) or (val >= -0.0005 ) ? 1 : 0
+isHisCrossZero = (val <= 0.0009 and val >= -0.0009 ) or (val[1] > 0 and val < 0) or (val[1] < 0 and val > 0) ? 1 : 0
 // With that five day gap we account for days when the market is closed
 //               the bar's time    1 day       1w   10weeks
 backtestWindow = time > (timenow - 86400000 *  7    * 10)
 
 // ----------------------------------------------------------------------------------------------------------
-// ENTRY by EMAs cross/break
-// Entry by Squeeze historgram shading and StochRSI
-entryUP3 = shadedRed and shadedRed[1] and lightRed[2]
-entryDN3 = shadedGreen and shadedGreen[1] and lightGreen[2]
-
-// SET the active entry algorithm
-entryUP = entryUP3
-entryDN = entryDN3
-// ----------------------------------------------------------------------------------------------------------
-// STEP 3. Determine long trading conditions
-enterLong = entryUP and backtestWindow and (strategy.position_size == 0) ? 1 : 0
-exitLong = (strategy.position_size > 0) and isHisCrossZero 
-
-// STEP 4. Code short trading conditions
-enterShort = entryDN and backtestWindow and (strategy.position_size == 0) ? 1 : 0
-exitShort = (strategy.position_size < 0) and isHisCrossZero
-// ----------------------------------------------------------------------------------------------------------
-// STEP 5. Output strategy data - Vẽ dấu mũi tên tại điểm vào lệnh
-// plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=30, minheight=30, transp=0)
-// plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=30, minheight=30, transp=0)
-
-// Vẽ đường line tại UP & Down trend
-// plot( SRSIUPTrend ? high + 34*syminfo.mintick : na, title="SRSI UP Trend", style=plot.style_linebr, color=color.blue, linewidth=1 )
-// plot( SRSIDNTrend ? low - 34*syminfo.mintick : na, title="SRSI DOWN Trend", style=plot.style_linebr, color=color.orange, linewidth=1 )
-
-// ----------------------------------------------------------------------------------------------------------
 // RISK MANAGEMENT
 rr_base = atr(89)
 // swing stop loss
-sw_sl = rr_base * 1.5
+sw_sl = rr_base * 1.1
 sw_tp = rr_base * 2
 long_sl = strategy.position_avg_price - sw_sl
 long_tp = strategy.position_avg_price + sw_tp
 short_sl = strategy.position_avg_price + sw_sl
 short_tp = strategy.position_avg_price - sw_tp
+// ----------------------------------------------------------------------------------------------------------
+// ENTRY by EMAs cross/break
+// Entry by Squeeze historgram shading and StochRSI
+entryUP3 = lightRed[2] and shadedRed[1] and shadedRed
+entryDN3 = lightGreen[2] and shadedGreen[1] and shadedGreen
+
+// SET the active entry algorithm
+entryUP = entryUP3
+entryDN = entryDN3
+// ----------------------------------------------------------------------------------------------------------
+// STEP 3. Determine long trading conditions and manually limits
+enterLong = entryUP and backtestWindow and (strategy.position_size == 0) ? 1 : 0
+exitLong = (strategy.position_size > 0) and (isHisCrossZero or barssince(enterLong) >= 5 or close >= long_tp or close <= long_sl)
+
+// STEP 4. Code short trading conditions and manually limits
+enterShort = entryDN and backtestWindow and (strategy.position_size == 0) ? 1 : 0
+exitShort = (strategy.position_size < 0) and (isHisCrossZero or barssince(enterShort) >= 5 or close <= short_tp or close >= short_sl)
+// ----------------------------------------------------------------------------------------------------------
+// STEP 5. Output strategy data - Vẽ dấu mũi tên tại điểm vào lệnh
+plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=30, minheight=30, transp=0)
+plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=30, minheight=30, transp=0)
+
+// Vẽ đường line tại UP & Down trend
+// plot( SRSIUPTrend ? high + 34*syminfo.mintick : na, title="SRSI UP Trend", style=plot.style_linebr, color=color.blue, linewidth=1 )
+// plot( SRSIDNTrend ? low - 34*syminfo.mintick : na, title="SRSI DOWN Trend", style=plot.style_linebr, color=color.orange, linewidth=1 )
+
 // ----------------------------------------------------------------------------------------------------------
 // STEP 6. Submit entry orders
 strategy.entry(id="eL", long=true, comment="eL", when=enterLong) //, stop=sw_sl, limit=sw_tp
@@ -89,9 +89,9 @@ fill(s1, s2, color=color.silver, transp=89)
 
 // STEP 7. Submit Money Management
 
-// Exit orders - Nếu chỉ chỉ định stoploss mà k chỉ đinh limitprofit thì lệnh sẽ chỉ thoát khi stoploss. When ở đây không phải điều kiện thoát lệnh mà chỉ là điều kiện xem xét cho stoploss và takeprofit. Vì lý do đó, có thể cân nhắc dùng cả close và exit để vừa có điều kiện thoát lệnh when vừa có stoploss & limitprofit.
-strategy.exit(id="xL", from_entry="eL", limit=long_tp, stop=long_sl, when=exitLong, comment="xL-exit")
-strategy.exit(id="xS", from_entry="eS", limit=short_tp, stop=short_sl, when=exitShort, comment="xS-exit")
+// Exit orders - Nếu chỉ chỉ định stoploss mà k chỉ đinh limitprofit thì lệnh sẽ chỉ thoát khi stoploss. When ở đây không phải điều kiện thoát lệnh mà chỉ là điều kiện xem xét cho stoploss và takeprofit. Vì lý do đó, có thể cân nhắc dùng cả close và exit để vừa có điều kiện thoát lệnh when vừa có stoploss & limitprofit. Tuy nhiên vấn đề khi dùng cả 2 là lệnh limit và stop không khớp.
+// strategy.exit(id="xL", from_entry="eL", limit=long_tp, stop=long_sl, when=exitLong, comment="xL-exit")
+// strategy.exit(id="xS", from_entry="eS", limit=short_tp, stop=short_sl, when=exitShort, comment="xS-exit")
 
 // Lệnh close không đặt được stoploss hay limitprofit, tuy nhiên When là điều kiện thoát lệnh cuối cùng.
 strategy.close(id="eL", when=exitLong, comment="xL-close")
