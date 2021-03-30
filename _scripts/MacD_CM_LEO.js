@@ -7,6 +7,7 @@
 //Note the feature Tech Support showed me on how to set the default timeframe of the indicator to the chart Timeframe, but also allow you to choose a different timeframe.
 //By the way I fully disclose that I completely STOLE the Dots at the MAcd Cross from "TheLark"
 
+// study(title="CM_MacD_Ult_MTF", shorttitle="CM_Ult_MacD_MTF")
 study(title="MacD_CM_LEO", shorttitle="MacD_CM_LEO")
 source = close
 useCurrentRes = input(true, title="Use Current Chart Resolution?")

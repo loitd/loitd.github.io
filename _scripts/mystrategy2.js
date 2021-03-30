@@ -31,21 +31,8 @@ lowerKC = ma - rangema * multKC
 sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC) //no order when squeeze on
 sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff -> Có xu hướng rõ ràng
 noSqz  = (sqzOn == false) and (sqzOff == false)
-
-// StochRSI Calculations
-smoothK = input(3, "K", minval=1)
-smoothD = input(3, "D", minval=1)
-lengthRSI = input(14, "RSI Length", minval=1)
-lengthStoch = input(14, "Stochastic Length", minval=1)
-src = input(close, title="RSI Source")
-rsi1 = rsi(src, lengthRSI)
-k = sma(stoch(rsi1, rsi1, rsi1, lengthStoch), smoothK)
-d = sma(k, smoothD)
-
-// Crossover = cắt dưới lên, Crossunder = cắt trên xuống
-SRSIOverBought = crossunder(k,d) ? 1 : 0
-SRSIOverSold = crossover(k,d) ? 1 : 0
-
+//Histogram cross zero?
+isHisCrossZero = (val <= 0.0005) or (val >= -0.0005 ) ? 1 : 0
 // With that five day gap we account for days when the market is closed
 //               the bar's time    1 day       1w   10weeks
 backtestWindow = time > (timenow - 86400000 *  7    * 10)
@@ -53,8 +40,8 @@ backtestWindow = time > (timenow - 86400000 *  7    * 10)
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
 // Entry by Squeeze historgram shading and StochRSI
-entryUP3 = shadedRed and shadedRed[1]
-entryDN3 = shadedGreen and shadedGreen[1] 
+entryUP3 = shadedRed and shadedRed[1] and lightRed[2]
+entryDN3 = shadedGreen and shadedGreen[1] and lightGreen[2]
 
 // SET the active entry algorithm
 entryUP = entryUP3
@@ -62,26 +49,20 @@ entryDN = entryDN3
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions
 enterLong = entryUP and backtestWindow and (strategy.position_size == 0) ? 1 : 0
-exitLong = (strategy.position_size > 0) and SRSIOverBought 
+exitLong = (strategy.position_size > 0) and isHisCrossZero 
 
 // STEP 4. Code short trading conditions
 enterShort = entryDN and backtestWindow and (strategy.position_size == 0) ? 1 : 0
-exitShort = (strategy.position_size < 0) and SRSIOverSold
+exitShort = (strategy.position_size < 0) and isHisCrossZero
 // ----------------------------------------------------------------------------------------------------------
 // STEP 5. Output strategy data - Vẽ dấu mũi tên tại điểm vào lệnh
-plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=30, minheight=30, transp=0)
-plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=30, minheight=30, transp=0)
-// plot overbought and oversold
-// Vẽ dấu + tại điểm thoát lệnh
-plot( SRSIOverBought or SRSIOverSold ? high : na, title="SRSI", style=plot.style_cross, color=color.purple, linewidth=2 )
+// plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=30, minheight=30, transp=0)
+// plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=30, minheight=30, transp=0)
 
 // Vẽ đường line tại UP & Down trend
-plot( SRSIUPTrend ? high + 34*syminfo.mintick : na, title="SRSI UP Trend", style=plot.style_linebr, color=color.blue, linewidth=1 )
-plot( SRSIDNTrend ? low - 34*syminfo.mintick : na, title="SRSI DOWN Trend", style=plot.style_linebr, color=color.orange, linewidth=1 )
+// plot( SRSIUPTrend ? high + 34*syminfo.mintick : na, title="SRSI UP Trend", style=plot.style_linebr, color=color.blue, linewidth=1 )
+// plot( SRSIDNTrend ? low - 34*syminfo.mintick : na, title="SRSI DOWN Trend", style=plot.style_linebr, color=color.orange, linewidth=1 )
 
-// Vẽ dấu chấm khi squeeze được shaded
-plot( shadedRed ? high + 55*syminfo.mintick : na, title="SQueeze UP Trend", style=plot.style_circles, color=color.blue, linewidth=1 )
-plot( shadedGreen ? low - 55*syminfo.mintick : na, title="SQueeze DOWN Trend", style=plot.style_circles, color=color.orange, linewidth=1 )
 // ----------------------------------------------------------------------------------------------------------
 // RISK MANAGEMENT
 rr_base = atr(89)
@@ -99,12 +80,12 @@ strategy.entry(id="eS", long=false, comment="eS", when=enterShort)
 
 // plot sl & tp levels. 
 // There's a nice benefit to strategy.position_avg_price. When our strategy scales in or out of a position, then the strategy.position_avg_price variable updates to reflect the then-current entry price. When that happens our stop prices automatically update as well. And that way our stops remain at the correct level, even with multiple entries and exits.
-// l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_cross, linewidth=3, color=color.red)
-// l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_cross, linewidth=3, color=color.lime)
-// fill(l1, l2, color=color.silver, transp=89)
-// s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_cross, linewidth=3, color=color.red)
-// s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_cross, linewidth=3, color=color.lime)
-// fill(s1, s2, color=color.silver, transp=89)
+l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_cross, linewidth=3, color=color.red)
+l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_cross, linewidth=3, color=color.lime)
+fill(l1, l2, color=color.silver, transp=89)
+s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_cross, linewidth=3, color=color.red)
+s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_cross, linewidth=3, color=color.lime)
+fill(s1, s2, color=color.silver, transp=89)
 
 // STEP 7. Submit Money Management
 
