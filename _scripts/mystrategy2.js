@@ -3,14 +3,10 @@
 // Profit Factor: số tiền kiếm được trên mỗi đơn vị tiền thua mất = gross profit/gross loss
 
 // Hiện theo backtest, chiến thuật giao dịch này không phù hợp với các khung thời gian nhỏ. 
-// Đối với cặp BTCUSD, 1D, sl_ratio: 1.2 có thể đạt profit factor 7.47 với khoảng 5 giao dịch
+// Đối với cặp BTCUSD, 1D, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 6.63 percentage 67% với 6 giao dịch
 // Đối với cặp AUDUSD, 4h, sl_ratio: 1.1 có thể đạt profit factor 2.16 với khoảng 29 giao dịch, percentage=67%
-// Đối với cặp AUDUSD, 4h, 20/2/20/1.5/hold7/sl1.2/tp3 Trend, PF  4.80 với 11 giao dịch, percentage=72%
-// Đối với cặp AUDUSD, 1d, sl_ratio: 1.1 có thể đạt profit factor 1.64 với khoảng 5 giao dịch 21/21/hold6/
-// Đối với cặp EURUSD, 4h, sl_ratio: 1.2 có thể đạt profit factor 1.78 với khoảng 27 giao dịch
-// Đối với cặp USDCHF, 4h, sl_ratio: 1.2 có thể đạt profit factor 1.46 với khoảng 26 giao dịch
-// Đối với cặp USDCAD, 4h, sl_ratio: 1.1 có thể đạt profit factor 1.48 với khoảng 30 giao dịch, 21/2/21/1.5/hold5/1.1/2
-// Đối với cặp USDCAD, 1d, sl_ratio: 1.1 có thể đạt profit factor 100% với khoảng 4 giao dịch, 21/2/21/1.5/hold5/1.1/2
+// Đối với cặp AUDUSD, 4h, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 5.9, percentage 80% với khoảng 20 giao dịch
+// Đối với cặp GBPUSD, 4h, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 3.4, percentage 67% với khoảng 18 giao dịch
 
 // © loi9985
 //@version=4
@@ -20,14 +16,17 @@ lengthBB 		= input(20, title="BB Length") // độ dài đường BB. 20 for a l
 mult 			= input(2.0,title="BB MultFactor") // tham số mult cho BB
 lengthKC 		= input(20, title="KC Length") // độ dài đường KC
 multKC 			= input(1.5, title="KC MultFactor")
-maxCandles2Hold = input(5, title="Maximum of candles to hold") // số lượng candles nắm giữ tối đa
-sl_ratio 		= input(1.1, title="Stoploss ratio") // tỷ lệ loss chấp nhận
-tp_ratio 		= input(2.0, title="TakeProfit ratio") // tỷ lệ profit chấp nhận
-numBackTest 	= input(100, title="Number of backtest days") // Number of days to calculate on
-withTrending	= input(true, title="Apply trending filter?")
+maxCandles2Hold = input(6, title="Maximum of candles to hold") // số lượng candles nắm giữ tối đa
+sl_ratio 		= input(1.5, title="Stoploss ratio") // tỷ lệ loss chấp nhận
+tp_ratio 		= input(3.0, title="TakeProfit ratio") // tỷ lệ profit chấp nhận
+backtestFrom 	= input(100, title="Far Most Day of Backtest") // Backtest From
+backTestTo      = input(1, title="Last Day Of BackTest") // Backtest TO
+withTrending	= input(false, title="Apply trending filter?")
 fastEMALength	= input(34, title="Fast EMA Length")
 slowEMALength	= input(55, title="Slow EMA Length")
-emaDeviationR	= input(20, title="EM Deviation Factor")
+emaDeviationR	= input(5, title="EMA Deviation Factor")
+withCandleColor = input(true, title="Apply Candle Color?")
+candleBodyRatio = input(4, title="Candle Body Ratio (to be div)")
 // SQUEEZE Calculations ---------------------------------------------------------------------------------
 // histogram
 val = linreg(close - avg(avg(highest(high, lengthKC), lowest(low, lengthKC)),sma(close,lengthKC)), lengthKC,0)
@@ -56,7 +55,7 @@ isHisCrossZero = abs(val) <= isZERO or (val[1] > 0 and val < 0) or (val[1] < 0 a
 // Back Test Window
 // With that five day gap we account for days when the market is closed. Chỉ tính cho đến ngày hôm qua
 //               the bar's time    1 day       1w   10weeks				to yesterday
-backtestWindow = time > (timenow - 86400000 * numBackTest) and time < (timenow - 86400000) ? 1 : 0
+backtestWindow = time > (timenow - 86400000 * backtestFrom) and time < (timenow - 86400000 * backTestTo) ? 1 : 0
 
 // RISK MANAGEMENT --------------------------------------------------------------------------------------
 rr_base 	= atr(144)
@@ -72,14 +71,19 @@ short_break = low <= short_tp or high >= short_sl ? 1 : 0 // trong thực tế c
 // Trend calculator ---------------------------------------------------------------------------------------
 fastEMA = ema(close, fastEMALength)
 slowEMA = ema(close, slowEMALength)
-emaDeviation = min( rr_base/emaDeviationR, abs(fastEMA[1]-slowEMA[1]) )
+emaDeviation = rr_base/emaDeviationR
 upTrend = fastEMA > (slowEMA+emaDeviation) ? 1 : 0 //high + 34*syminfo.mintick
 downTrend = fastEMA < (slowEMA-emaDeviation) ? 1 : 0
+// Candles calculations ---------------------------------------------------------------------------------
+redBigCandle = close < open - rr_base/candleBodyRatio ? 1 : 0
+greenBigCandle = close > open + rr_base/candleBodyRatio ? 1 : 0
+redCandle = close < open ? 1 : 0
+greenCandle = close > open ? 1 : 0
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
-// Entry by Squeeze historgram shading and StochRSI
-entryUP3 = lightRed[2] and shadedRed[1] and shadedRed 
-entryDN3 = lightGreen[2] and shadedGreen[1] and shadedGreen 
+// Lọc candle color: có 1 thanh đó xuất hiện trong uptrend, nhưng không được có 2 thanh đỏ liên tiếp xuất hiện trong uptrend do có thể là dấu hiệu downtrend. TT với downtrend.
+entryUP3 = withCandleColor ? shadedRed[1] and shadedRed and redBigCandle and greenCandle[1] : shadedRed[1] and shadedRed //lightRed[2] and 
+entryDN3 = withCandleColor ? shadedGreen[1] and shadedGreen and greenBigCandle and redCandle[1] : shadedGreen[1] and shadedGreen //lightGreen[2] and 
 //entryUP3 = lightRed[2] and shadedRed[1] and shadedRed
 //entryDN3 = lightGreen[2] and shadedGreen[1] and shadedGreen
 // SET the active entry algorithm
