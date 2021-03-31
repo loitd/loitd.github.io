@@ -4,9 +4,8 @@
 
 // Hiện theo backtest, chiến thuật giao dịch này không phù hợp với các khung thời gian nhỏ. 
 // Đối với cặp BTCUSD, 1D, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 6.63 percentage 67% với 6 giao dịch
-// Đối với cặp AUDUSD, 4h, sl_ratio: 1.1 có thể đạt profit factor 2.16 với khoảng 29 giao dịch, percentage=67%
-// Đối với cặp AUDUSD, 4h, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 5.9, percentage 80% với khoảng 20 giao dịch
-// Đối với cặp GBPUSD, 4h, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 3.4, percentage 67% với khoảng 18 giao dịch
+// Đối với cặp AUDUSD, 4h, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 5.9, percentage 80% với khoảng 20 giao dịch/100 ngày
+// Đối với cặp GBPUSD, 4h, 20/2/20/1.5/hold6/1.5/3/100/false////true/4 có PF 3.4, percentage 67% với khoảng 18 giao dịch/100 ngày
 
 // © loi9985
 //@version=4
