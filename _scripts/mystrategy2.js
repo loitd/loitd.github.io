@@ -27,6 +27,7 @@ numBackTest 	= input(100, title="Number of backtest days") // Number of days to 
 withTrending	= input(true, title="Apply trending filter?")
 fastEMALength	= input(34, title="Fast EMA Length")
 slowEMALength	= input(55, title="Slow EMA Length")
+emaDeviationR	= input(20, title="EM Deviation Factor")
 // SQUEEZE Calculations ---------------------------------------------------------------------------------
 // histogram
 val = linreg(close - avg(avg(highest(high, lengthKC), lowest(low, lengthKC)),sma(close,lengthKC)), lengthKC,0)
@@ -57,12 +58,6 @@ isHisCrossZero = abs(val) <= isZERO or (val[1] > 0 and val < 0) or (val[1] < 0 a
 //               the bar's time    1 day       1w   10weeks				to yesterday
 backtestWindow = time > (timenow - 86400000 * numBackTest) and time < (timenow - 86400000) ? 1 : 0
 
-// Trend calculator -------------------------------------------------------------------------------------
-fastEMA = ema(close, fastEMALength)
-slowEMA = ema(close, slowEMALength)
-upTrend = fastEMA > slowEMA ? 1 : 0
-downTrend = fastEMA < slowEMA ? 1 : 0
- 
 // RISK MANAGEMENT --------------------------------------------------------------------------------------
 rr_base 	= atr(144)
 sw_sl 		= rr_base * sl_ratio
@@ -74,6 +69,12 @@ short_tp 	= min(strategy.position_avg_price - sw_tp, low[1])
 long_break 	= high >= long_tp or low <= long_sl ? 1 : 0 // the CLOSE price touch stoploss or takeprofit
 short_break = low <= short_tp or high >= short_sl ? 1 : 0 // trong thực tế chỉ cần HIGH hoặc LOW chạm là đã bị dừng -> phải để HIGH & LOW mới đúng
 // chỗ này cần lưu ý không nên đổi high low về close. Nếu cần gồng lệnh thì đổi sl_ratio lên cao hơn. -> các bộ tham số INPUT cần chỉnh lại cho hợp lý đối với các khung thời gian và cặp tiền khác nhau.
+// Trend calculator ---------------------------------------------------------------------------------------
+fastEMA = ema(close, fastEMALength)
+slowEMA = ema(close, slowEMALength)
+emaDeviation = min( rr_base/emaDeviationR, abs(fastEMA[1]-slowEMA[1]) )
+upTrend = fastEMA > (slowEMA+emaDeviation) ? 1 : 0 //high + 34*syminfo.mintick
+downTrend = fastEMA < (slowEMA-emaDeviation) ? 1 : 0
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
 // Entry by Squeeze historgram shading and StochRSI
