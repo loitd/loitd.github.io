@@ -9,23 +9,24 @@
 
 // © loi9985
 //@version=4
-strategy(title="Leo_Strategy_2", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=10, pyramiding=0, slippage=2, calc_on_every_tick=true)
+// Nếu để calc_on_every_tick sẽ khó khăn trong việc apply realtime
+strategy(title="Leo_Strategy_2", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=10, pyramiding=0, slippage=2, calc_on_every_tick=false)
 // All Declarations
 lengthBB 		= input(20, title="BB Length") // độ dài đường BB. 20 for a little early than 21
 mult 			= input(2.0,title="BB MultFactor") // tham số mult cho BB
 lengthKC 		= input(20, title="KC Length") // độ dài đường KC
 multKC 			= input(1.5, title="KC MultFactor")
-maxCandles2Hold = input(6, title="Maximum of candles to hold") // số lượng candles nắm giữ tối đa
+maxCandles2Hold = input(5, title="Maximum of candles to hold") // số lượng candles nắm giữ tối đa
 sl_ratio 		= input(1.5, title="Stoploss ratio") // tỷ lệ loss chấp nhận
-tp_ratio 		= input(3.0, title="TakeProfit ratio") // tỷ lệ profit chấp nhận
+tp_ratio 		= input(2.5, title="TakeProfit ratio") // tỷ lệ profit chấp nhận
 backtestFrom 	= input(100, title="Far Most Day of Backtest") // Backtest From
-backTestTo      = input(1, title="Last Day Of BackTest") // Backtest TO
+backTestTo      = input(0, title="Last Minutes Of BackTest") // Backtest TO
 withTrending	= input(false, title="Apply trending filter?")
 fastEMALength	= input(34, title="Fast EMA Length")
 slowEMALength	= input(55, title="Slow EMA Length")
 emaDeviationR	= input(5, title="EMA Deviation Factor")
 withCandleColor = input(true, title="Apply Candle Color?")
-candleBodyRatio = input(4, title="Candle Body Ratio (to be div)")
+candleBodyRatio = input(5, title="Candle Body Ratio (to be div)")
 // SQUEEZE Calculations ---------------------------------------------------------------------------------
 // histogram
 val = linreg(close - avg(avg(highest(high, lengthKC), lowest(low, lengthKC)),sma(close,lengthKC)), lengthKC,0)
@@ -53,8 +54,8 @@ isHisCrossZero = abs(val) <= isZERO or (val[1] > 0 and val < 0) or (val[1] < 0 a
 
 // Back Test Window
 // With that five day gap we account for days when the market is closed. Chỉ tính cho đến ngày hôm qua
-//               the bar's time    1 day       1w   10weeks				to yesterday
-backtestWindow = time > (timenow - 86400000 * backtestFrom) and time < (timenow - 86400000 * backTestTo) ? 1 : 0
+//               the bar's time    1 day       1w   10weeks				to        1m        last
+backtestWindow = time > (timenow - 86400000 * backtestFrom) and time < (timenow - 60000 * backTestTo) ? 1 : 0
 
 // RISK MANAGEMENT --------------------------------------------------------------------------------------
 rr_base 	= atr(144)
@@ -118,8 +119,10 @@ s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=p
 s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_linebr, linewidth=3, color=color.lime)
 fill(s1, s2, color=color.silver, transp=89)
 //Trend Triangles at Top and Bottom of Screen
-plotshape(withTrending and upTrend ? upTrend : na, title="Trend Triangle",style=shape.triangleup, location=location.bottom, color=color.lime, transp=0, offset=0)
-plotshape(withTrending and downTrend ? downTrend : na, title="Trend Triangle",style=shape.triangledown, location=location.top, color=color.red, transp=0, offset=0)
+// plotshape(withTrending and upTrend ? upTrend : na, title="Trend Triangle",style=shape.triangleup, location=location.bottom, color=color.lime, transp=0, offset=0)
+// plotshape(withTrending and downTrend ? downTrend : na, title="Trend Triangle",style=shape.triangledown, location=location.top, color=color.red, transp=0, offset=0)
+plotshape(shadedRed[1] and shadedRed ? 1 : na, title="Shaded Triangle",style=shape.triangleup, location=location.bottom, color=color.green, transp=0, offset=0, size=size.tiny)
+plotshape(shadedGreen[1] and shadedGreen ? 1 : na, title="Shaded Triangle",style=shape.triangledown, location=location.top, color=color.maroon, transp=0, offset=0, size=size.tiny)
 //Moving Average Plots and Fill
 col = upTrend ? color.lime : downTrend ? color.orange : na
 p1 = plot(withTrending ? fastEMA : na, title="Fast MA", style=plot.style_linebr, linewidth=1, color=col)
