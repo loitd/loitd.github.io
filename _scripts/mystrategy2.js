@@ -122,7 +122,7 @@ fill(s1, s2, color=color.silver, transp=89)
 // plotshape(withTrending and upTrend ? upTrend : na, title="Trend Triangle",style=shape.triangleup, location=location.bottom, color=color.lime, transp=0, offset=0)
 // plotshape(withTrending and downTrend ? downTrend : na, title="Trend Triangle",style=shape.triangledown, location=location.top, color=color.red, transp=0, offset=0)
 plotshape(shadedRed[1] and shadedRed ? 1 : na, title="Shaded Triangle",style=shape.triangleup, location=location.bottom, color=color.green, transp=0, offset=0, size=size.tiny)
-plotshape(shadedGreen[1] and shadedGreen ? 1 : na, title="Shaded Triangle",style=shape.triangledown, location=location.top, color=color.maroon, transp=0, offset=0, size=size.tiny)
+plotshape(shadedGreen[1] and shadedGreen ? 1 : na, title="Shaded Triangle",style=shape.triangledown, location=location.top, color=color.red, transp=0, offset=0, size=size.tiny)
 //Moving Average Plots and Fill
 col = upTrend ? color.lime : downTrend ? color.orange : na
 p1 = plot(withTrending ? fastEMA : na, title="Fast MA", style=plot.style_linebr, linewidth=1, color=col)
