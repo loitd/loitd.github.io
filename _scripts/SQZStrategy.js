@@ -52,7 +52,7 @@ lowerKC 	= ma - rangema * multKC
 // Back Test Window
 // With that five day gap we account for days when the market is closed. Chỉ tính cho đến ngày hôm qua
 //               the bar's time    1 day       1w   10weeks				to        1d        last
-backtestWindow = time > (timenow - 86400000 * fromDate) and time < (timenow - 86400000 * toDate) ? 1 : 0
+backtestWindow = time >= (timenow - 86400000 * fromDate) and time <= (timenow - 86400000 * toDate) ? 1 : 0
 // backtestWindow = 1
 
 // Squeeze qualifications
@@ -104,14 +104,22 @@ strategy.close(id="eL", when=exitLong, comment="xL") // Lệnh close không đ�
 strategy.close(id="eS", when=exitShort, comment="xS")
 // ----------------------------------------------------------------------------------------------------------
 // STEP 5. PLOTTING 
+// Change color bar
+barcolor((firstShadedRed or firstShadedGreen) ? color.yellow : na)
+// Draw a label for shaded bar
+yLocation = firstShadedRed ? yloc.belowbar : firstShadedGreen ? yloc.abovebar : yloc.price
+styleLabel = firstShadedRed ? label.style_labelup : label.style_labeldown
+styleColor = entryUP ? color.new(color.lime, 15) : entryDN ? color.new(color.orange, 15) : color.new(color.yellow, 15)
+label1 = label.new(x=bar_index, y=na, yloc=yLocation, style=styleLabel, color=styleColor, text="")
+label.set_text(label1, "CandleR: "+tostring(candleBody/candleHeight, '#.##')+"\nSQZ: "+tostring(val, '#.##'))
 // Vẽ dấu mũi tên tại điểm vào lệnh
-plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=30, minheight=30, transp=0)
-plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=30, minheight=30, transp=0)
+// plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=60, minheight=50)
+// plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=60, minheight=50)
 // Vẽ stoploss và takeprofit
 l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_linebr, linewidth=3, color=color.red)
 l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_linebr, linewidth=3, color=color.lime)
-fill(l1, l2, color=color.silver, transp=89)
+fill(l1, l2, color=color.new(color.silver, 89) )
 s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_linebr, linewidth=3, color=color.red)
 s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_linebr, linewidth=3, color=color.lime)
-fill(s1, s2, color=color.silver, transp=89)
+fill(s1, s2, color=color.new(color.silver, 89) )
 // ----------------------------------------------------------------------------------------------------------
