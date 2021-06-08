@@ -10,19 +10,21 @@
 // © loi9985
 //@version=4
 // Nếu để calc_on_every_tick sẽ khó khăn trong việc apply realtime
-strategy(title="SQZStrategy", overlay=true, initial_capital=1000, default_qty_type=strategy.cash, default_qty_value=1000, pyramiding=0, slippage=2, calc_on_every_tick=false)
+strategy(title="SQZStrategy", overlay=true, initial_capital=10000, default_qty_type=strategy.cash, default_qty_value=2700, pyramiding=0, slippage=2, calc_on_every_tick=false)
 // All Declarations
 lengthBB 		= input(21, title="BB Length") // độ dài đường BB. 20 for a little early than 21
 mult 			= input(2.0,title="BB MultFactor") // tham số mult cho BB
 lengthKC 		= input(21, title="KC Length") // độ dài đường KC
 multKC 			= input(1.5, title="KC MultFactor")
-sqzMin  		= input(5, title="SQZ Min")
-sqzMax	    	= input(40, title="SQZ Max")
+sqzMin  		= input(4, title="SQZ Min") //optimized
+sqzMax	    	= input(39, title="SQZ Max")
 // -----------------------------------------------------------------------
-stoploss 		= input(1000, title="Stoploss in PIP") // tỷ lệ loss chấp nhận
+stoploss 		= input(100, title="Stoploss in PIP") // tỷ lệ loss chấp nhận
 takeprofit 		= input(2000, title="TakeProfit in PIP") // tỷ lệ profit chấp nhận
 // -----------------------------------------------------------------------
 minCBodyRatio   = input(0.5, title="Min Candle Body Ratio")
+// Trending EMA
+emaPeriod       = input(200, title="Trending EMA Period")
 // SQUEEZE Calculations ---------------------------------------------------------------------------------
 // histogram
 val = linreg(close - avg(avg(highest(high, lengthKC), lowest(low, lengthKC)),sma(close,lengthKC)), lengthKC,0)
@@ -69,8 +71,8 @@ isCandleQualified = candleBody/candleHeight >= minCBodyRatio ? 1 : 0
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
 // Lọc candle color: có 1 thanh đó xuất hiện trong uptrend, nhưng không được có 2 thanh đỏ liên tiếp xuất hiện trong uptrend do có thể là dấu hiệu downtrend. TT với downtrend.
-entryUP = shadedRed and isCandleQualified and isSQZQualified
-entryDN = shadedGreen and isCandleQualified and isSQZQualified
+entryUP = shadedRed and isCandleQualified and isSQZQualified and (high < ema(close, emaPeriod)) 
+entryDN = shadedGreen and isCandleQualified and isSQZQualified and (low > ema(close, emaPeriod))
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions and manually limits
 enterLong 	= entryUP and backtestWindow and (strategy.position_size == 0) ? 1 : 0
