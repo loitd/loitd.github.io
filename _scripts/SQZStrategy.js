@@ -1,7 +1,21 @@
 // Tính chất: khung 4h, target P/L: 60/40, PNL Rate: 1.5, chỉ số: BTCUSD, ETHUSD với tần suất 1 tuần (1 ngày?) 1 lệnh
 // Mục tiêu: lợi nhuận 3% vốn/tháng -> 1 tuần 1 lệnh -> 10% vốn 1 lệnh
 // Profit Factor: số tiền kiếm được trên mỗi đơn vị tiền thua mất = gross profit/gross loss
-
+// ===============================================================================================================================
+//                                                                                               Net   %Profit     Drawdown              
+// Cấu hình cho ETH H1  : sqzMin = 4, sqzMax = 159, SL = 4000, TP = 9000    => 51 trades  / 60 days, 845%,  49% +  354$ = 130% drawdown
+// Cấu hình cho ETH M15 : sqzMin = 1, sqzMax = 159                          => 222 trades / 60 days, 953%,  50% +  193$ = 36% drawdown
+// Cấu hình cho ETH M15 : sqzMin = 1, sqzMax = 159, SL = 1000, TP = 6000    => 211 trades / 60 days, 1160%, 44% +  193$ = 55% drawdown
+// Cấu hình cho ETH M15 : sqzMin = 1, sqzMax = 39        1000       3000    => 105 trades / 60 days, 775%,  52% +  83$  = 36% drawdown 
+// Cấu hình cho ETH M15 : sqzMin = 0, sqzMax = 200       2000       6000, Candle ratio = 0.7, FirstShadedOnly = No, WithTrending = Yes  
+//                                                                      => 101 trades / 60 days, 1104%, 44% +  151$ = 93% drawdown
+// Cấu hình cho ETH M15 : sqzMin = 0, sqzMax = 159,      1000       3000, Candle ratio = 0.7, FirstShadedOnly = Yes, WithTrending = Yes  
+//                                                                      => 47  trades / 60 days, 543%,  61% +  89$  = 21% drawdown
+// Cấu hình cho ETH M15 : sqzMin = 1, sqzMax = 41,       1000       3000, Candle ratio = 0.4, FirstShadedOnly = Yes, WithTrending = Yes (default)  
+//                                                                      => 61  trades / 60 days, 803%,  60% +  42$  = 23% drawdown
+// Cấu hình cho BTC M15 : sqzMin = 1, sqzMax = 670,      1000       3000, Candle ratio = 0.4, FirstShadedOnly = Yes, WithTrending = Yes  
+//                                                                      => 64  trades / 60 days, 3561%, 59% +  721$ = 111% drawdown
+// ===============================================================================================================================
 // © loi9985
 //@version=4
 // Nếu để calc_on_every_tick sẽ khó khăn trong việc apply realtime
@@ -12,19 +26,20 @@ mult 			= input(2.0,title="BB MultFactor") // tham số mult cho BB
 lengthKC 		= input(21, title="KC Length") // độ dài đường KC
 multKC 			= input(1.5, title="KC MultFactor")
 sqzMin  		= input(1, title="SQZ Min") //optimized
-sqzMax	    	= input(39, title="SQZ Max")
+sqzMax	    	= input(41, title="SQZ Max")
 // -----------------------------------------------------------------------
 stoploss 		= input(1000, title="Stoploss in PIP") // tỷ lệ loss chấp nhận
 takeprofit 		= input(3000, title="TakeProfit in PIP") // tỷ lệ profit chấp nhận
 // -----------------------------------------------------------------------
-minCBodyRatio   = input(0.6, title="Min Candle Body Ratio")
+firstShadedOnly = input(true, title="Filter first shaded SQZ only?")
+minCBodyRatio   = input(0.4, title="Min Candle Body Ratio")
 // Trending EMAs ---------------------------------------------------------
-withTrending    = input(false, title="Apply trending filter?")
+withTrending    = input(true, title="Apply trending filter?")
 ema1            = input(34, title="Trending EMA 1 Period")
 ema2            = input(89, title="Trending EMA 2 Period")
 ema3            = input(200, title="Trending EMA 3 Period")
 // -----------------------------------------------------------------------
-fromDate         = input(30, title="From date")
+fromDate         = input(60, title="From date")
 toDate           = input(0, title="To date")
 // SQUEEZE Calculations ---------------------------------------------------------------------------------
 // histogram
@@ -59,8 +74,12 @@ backtestWindow = time >= (timenow - 86400000 * fromDate) and time <= (timenow - 
 sqzOn  = (lowerBB > lowerKC) and (upperBB < upperKC) //no order when squeeze on
 sqzOff = (lowerBB < lowerKC) and (upperBB > upperKC) //we will trade only when sqzOff 
 noSqz  = (sqzOn == false) and (sqzOff == false)
-//Histogram cross zero?
-isSQZQualified = abs(val) >= abs(sqzMin) and abs(val) < abs(sqzMax) ? 1 : 0
+//Squeeze between Min and Max?
+isSQZSizeQualified = abs(val) >= abs(sqzMin) and abs(val) < abs(sqzMax) ? 1 : 0
+// First shaded or not?
+isSQZShadedRed = shadedRed and ( not firstShadedOnly or firstShadedRed) ? 1 : 0
+isSQZShadedGreen = shadedGreen and (not firstShadedOnly or firstShadedGreen) ? 1 : 0
+
 
 // Trending qualification
 // ema34 > ema89 > ema200 + ema34 > ema34[1]
@@ -83,8 +102,8 @@ isCandleQualified = candleBody/candleHeight >= minCBodyRatio ? 1 : 0
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
 // Lọc candle color: có 1 thanh đó xuất hiện trong uptrend, nhưng không được có 2 thanh đỏ liên tiếp xuất hiện trong uptrend do có thể là dấu hiệu downtrend. TT với downtrend.
-entryUP = firstShadedRed and isCandleQualified and isSQZQualified and (not withTrending or isUpTrend) // (high < ema(close, emaPeriod)) 
-entryDN = firstShadedGreen and isCandleQualified and isSQZQualified and (not withTrending or isDownTrend) // (low > ema(close, emaPeriod))
+entryUP = isSQZShadedRed and isCandleQualified and isSQZSizeQualified and (not withTrending or isUpTrend) // (high < ema(close, emaPeriod)) 
+entryDN = isSQZShadedGreen and isCandleQualified and isSQZSizeQualified and (not withTrending or isDownTrend) // (low > ema(close, emaPeriod))
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions and manually limits
 enterLong 	= entryUP and backtestWindow and (strategy.position_size == 0) ? 1 : 0
@@ -105,13 +124,14 @@ strategy.close(id="eS", when=exitShort, comment="xS")
 // ----------------------------------------------------------------------------------------------------------
 // STEP 5. PLOTTING 
 // Change color bar
-barcolor((firstShadedRed or firstShadedGreen) ? color.yellow : na)
+barcolor((isSQZShadedRed or isSQZShadedGreen) ? color.yellow : na)
 // Draw a label for shaded bar
-yLocation = firstShadedRed ? yloc.belowbar : firstShadedGreen ? yloc.abovebar : yloc.price
-styleLabel = firstShadedRed ? label.style_labelup : label.style_labeldown
-styleColor = entryUP ? color.new(color.lime, 15) : entryDN ? color.new(color.orange, 15) : color.new(color.yellow, 15)
-label1 = label.new(x=bar_index, y=na, yloc=yLocation, style=styleLabel, color=styleColor, text="")
-label.set_text(label1, "CandleR: "+tostring(candleBody/candleHeight, '#.##')+"\nSQZ: "+tostring(val, '#.##'))
+yLocation   = entryUP ? yloc.belowbar : entryDN ? yloc.abovebar : yloc.price
+styleLabel  = entryUP ? label.style_labelup : label.style_labeldown
+styleColor  = entryUP ? color.new(color.lime, 10) : entryDN ? color.new(color.orange, 10) : color.new(color.yellow, 15)
+label1      = label.new(x=bar_index, y=na, yloc=yLocation, style=styleLabel, color=styleColor, text="")
+sltpTxt     = entryUP ? "SL: " + tostring(long_sl) + "\nTP: " + tostring(long_tp) : "SL: " + tostring(short_sl) + "\nTP: " + tostring(short_tp)
+label.set_text(label1, "CaR: "+tostring(candleBody/candleHeight, '#.#')+"\nSQZ: "+tostring(val, '#.#') + "\n"+ sltpTxt)
 // Vẽ dấu mũi tên tại điểm vào lệnh
 // plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=60, minheight=50)
 // plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=60, minheight=50)
