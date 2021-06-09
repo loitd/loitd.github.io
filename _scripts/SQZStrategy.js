@@ -87,10 +87,11 @@ isUpTrend   = ema(close, ema1) > ema(close, ema2) and ema(close, ema2) > ema(clo
 isDownTrend = ema(close, ema1) < ema(close, ema2) and ema(close, ema2) < ema(close, ema3) and ema(close, ema2) < ema(close, ema2)[1]
 
 // RISK MANAGEMENT --------------------------------------------------------------------------------------
-long_sl 	= strategy.position_avg_price - (stoploss * syminfo.mintick)
-long_tp 	= strategy.position_avg_price + (takeprofit * syminfo.mintick)
-short_sl 	= strategy.position_avg_price + (stoploss * syminfo.mintick)
-short_tp 	= strategy.position_avg_price - (takeprofit * syminfo.mintick)
+// long_sl 	= strategy.position_avg_price - (stoploss * syminfo.mintick)
+long_sl 	= close - (stoploss * syminfo.mintick) // The close during unconfirmed bar represent the current price of the asset.
+long_tp 	= close + (takeprofit * syminfo.mintick)
+short_sl 	= close + (stoploss * syminfo.mintick)
+short_tp 	= close - (takeprofit * syminfo.mintick)
 long_break 	= high >= long_tp or low <= long_sl ? 1 : 0 // the CLOSE price touch stoploss or takeprofit
 short_break = low <= short_tp or high >= short_sl ? 1 : 0 // trong thực tế chỉ cần HIGH hoặc LOW chạm là đã bị dừng -> phải để HIGH & LOW mới đúng
 
@@ -126,20 +127,26 @@ strategy.close(id="eS", when=exitShort, comment="xS")
 // Change color bar
 barcolor((isSQZShadedRed or isSQZShadedGreen) ? color.yellow : na)
 // Draw a label for shaded bar
-yLocation   = entryUP ? yloc.belowbar : entryDN ? yloc.abovebar : yloc.price
-styleLabel  = entryUP ? label.style_labelup : label.style_labeldown
-styleColor  = entryUP ? color.new(color.lime, 10) : entryDN ? color.new(color.orange, 10) : color.new(color.yellow, 15)
+yLocation   = isSQZShadedRed ? yloc.belowbar : isSQZShadedGreen ? yloc.abovebar : yloc.price
+styleLabel  = isSQZShadedRed ? label.style_labelup : label.style_labeldown
+styleColor  = entryUP ? color.new(color.lime, 9) : entryDN ? color.new(color.red, 9) : color.new(color.yellow, 9)
 label1      = label.new(x=bar_index, y=na, yloc=yLocation, style=styleLabel, color=styleColor, text="")
-sltpTxt     = entryUP ? "SL: " + tostring(long_sl) + "\nTP: " + tostring(long_tp) : "SL: " + tostring(short_sl) + "\nTP: " + tostring(short_tp)
+sltpTxt     = isSQZShadedRed ? "SL: " + tostring(long_sl) + "\nTP: " + tostring(long_tp) : "SL: " + tostring(short_sl) + "\nTP: " + tostring(short_tp)
 label.set_text(label1, "CaR: "+tostring(candleBody/candleHeight, '#.#')+"\nSQZ: "+tostring(val, '#.#') + "\n"+ sltpTxt)
 // Vẽ dấu mũi tên tại điểm vào lệnh
 // plotarrow(enterLong ? enterLong : na, title="Up Entry Arrow", colorup=color.lime, maxheight=60, minheight=50)
 // plotarrow(enterShort*-1 ? enterShort*-1 : na, title="Down Entry Arrow", colordown=color.red, maxheight=60, minheight=50)
 // Vẽ stoploss và takeprofit
-l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_linebr, linewidth=3, color=color.red)
-l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_linebr, linewidth=3, color=color.lime)
-fill(l1, l2, color=color.new(color.silver, 89) )
-s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_linebr, linewidth=3, color=color.red)
-s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_linebr, linewidth=3, color=color.lime)
-fill(s1, s2, color=color.new(color.silver, 89) )
+// l1 = plot( strategy.position_size > 0 ? long_sl : na, title="Long SL", style=plot.style_linebr, linewidth=3, color=color.red)
+// l2 = plot( strategy.position_size > 0 ? long_tp : na, title="Long TP", style=plot.style_linebr, linewidth=3, color=color.lime)
+// fill(l1, l2, color=color.new(color.silver, 89) )
+// s1 = plot( strategy.position_size < 0 ? short_sl : na, title="Short SL", style=plot.style_linebr, linewidth=3, color=color.red)
+// s2 = plot( strategy.position_size < 0 ? short_tp : na, title="Short TP", style=plot.style_linebr, linewidth=3, color=color.lime)
+// fill(s1, s2, color=color.new(color.silver, 89) )
+if (isSQZShadedRed)
+    l1 = line.new(bar_index[1], long_sl, bar_index, long_sl, color=color.red, style=line.style_dotted, width=3) //line.new(x1, y1, x2, y2, xloc, extend, color, style, width)
+    l2 = line.new(bar_index[1], long_tp, bar_index, long_tp, color=color.lime, style=line.style_dotted, width=3) 
+if (isSQZShadedGreen)
+    l3 = line.new(bar_index[1], short_tp, bar_index, short_tp, color=color.lime, style=line.style_dotted, width=3) 
+    l4 = line.new(bar_index[1], short_sl, bar_index, short_sl, color=color.red, style=line.style_dotted, width=3) 
 // ----------------------------------------------------------------------------------------------------------
