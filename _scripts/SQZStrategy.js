@@ -15,18 +15,20 @@
 //                                                                      => 61  trades / 60 days, 803%,  60% +  42$  = 23% drawdown
 // Cấu hình cho BTC M15 : sqzMin = 1, sqzMax = 670,      1000       3000, Candle ratio = 0.4, FirstShadedOnly = Yes, WithTrending = Yes  
 //                                                                      => 64  trades / 60 days, 3561%, 59% +  721$ = 111% drawdown
+// Cấu hình cho BCH M15 : sqzMin = 5, sqzMax = 16,       300        1000, Candle ratio = 0.4, FirstShadedOnly = Yes, WithTrending = No  
+//                                                                      => 136 trades / 60 days, 1222%, 67% +  113$ = 47% drawdown
 // ===============================================================================================================================
 // © loi9985
 //@version=4
 // Nếu để calc_on_every_tick sẽ khó khăn trong việc apply realtime
-strategy(   title="SQZStrategy", overlay=true, initial_capital=100, default_qty_type=strategy.fixed, default_qty_value=1, pyramiding=0, slippage=2, calc_on_every_tick=false, commission_value=0.01, commission_type=strategy.commission.percent)
+strategy(   title="SQZStrategy", overlay=true, initial_capital=100, default_qty_type=strategy.fixed, default_qty_value=1, pyramiding=0, slippage=2, calc_on_every_tick=false, commission_value=0.01, commission_type=strategy.commission.percent, process_orders_on_close=false)
 // All Declarations
 lengthBB 		= input(21, title="BB Length") // độ dài đường BB. 20 for a little early than 21
 mult 			= input(2.0,title="BB MultFactor") // tham số mult cho BB
 lengthKC 		= input(21, title="KC Length") // độ dài đường KC
 multKC 			= input(1.5, title="KC MultFactor")
-sqzMin  		= input(1, title="SQZ Min") //optimized
-sqzMax	    	= input(41, title="SQZ Max")
+sqzMin  		= input(1.0, title="SQZ Min") //optimized
+sqzMax	    	= input(41.0, title="SQZ Max")
 // -----------------------------------------------------------------------
 stoploss 		= input(1000, title="Stoploss in PIP") // tỷ lệ loss chấp nhận
 takeprofit 		= input(3000, title="TakeProfit in PIP") // tỷ lệ profit chấp nhận
@@ -38,6 +40,9 @@ withTrending    = input(true, title="Apply trending filter?")
 ema1            = input(34, title="Trending EMA 1 Period")
 ema2            = input(89, title="Trending EMA 2 Period")
 ema3            = input(200, title="Trending EMA 3 Period")
+// With ATR
+withATR         = input(true, title="Apply ATR filter?")
+minATRRatio     = input(0.9, title="Min Candle Body vs ATR Ratio")
 // -----------------------------------------------------------------------
 fromDate         = input(60, title="From date")
 toDate           = input(0, title="To date")
@@ -85,6 +90,8 @@ isSQZShadedGreen = shadedGreen and (not firstShadedOnly or firstShadedGreen) ? 1
 // ema34 > ema89 > ema200 + ema34 > ema34[1]
 isUpTrend   = ema(close, ema1) > ema(close, ema2) and ema(close, ema2) > ema(close, ema3) and ema(close, ema2) > ema(close, ema2)[1] 
 isDownTrend = ema(close, ema1) < ema(close, ema2) and ema(close, ema2) < ema(close, ema3) and ema(close, ema2) < ema(close, ema2)[1]
+isWithUpTrend = (not withTrending or isUpTrend)
+isWithDownTrend = (not withTrending or isDownTrend)
 
 // RISK MANAGEMENT --------------------------------------------------------------------------------------
 // long_sl 	= strategy.position_avg_price - (stoploss * syminfo.mintick)
@@ -100,11 +107,14 @@ candleHeight = abs(high-low)
 candleBody = abs(close-open)
 isCandleQualified = candleBody/candleHeight >= minCBodyRatio ? 1 : 0
 
+// ATR Calculations
+isATRQualified = candleBody/atr(14) >= minATRRatio ? 1 : 0
+isWithATRQualified = (not withATR or isATRQualified)
 // ----------------------------------------------------------------------------------------------------------
 // ENTRY by EMAs cross/break
 // Lọc candle color: có 1 thanh đó xuất hiện trong uptrend, nhưng không được có 2 thanh đỏ liên tiếp xuất hiện trong uptrend do có thể là dấu hiệu downtrend. TT với downtrend.
-entryUP = isSQZShadedRed and isCandleQualified and isSQZSizeQualified and (not withTrending or isUpTrend) // (high < ema(close, emaPeriod)) 
-entryDN = isSQZShadedGreen and isCandleQualified and isSQZSizeQualified and (not withTrending or isDownTrend) // (low > ema(close, emaPeriod))
+entryUP = isSQZShadedRed and isCandleQualified and isSQZSizeQualified and isWithUpTrend and isWithATRQualified // (high < ema(close, emaPeriod)) 
+entryDN = isSQZShadedGreen and isCandleQualified and isSQZSizeQualified and isWithDownTrend and isWithATRQualified // (low > ema(close, emaPeriod))
 // ----------------------------------------------------------------------------------------------------------
 // STEP 3. Determine long trading conditions and manually limits
 enterLong 	= entryUP and backtestWindow and (strategy.position_size == 0) ? 1 : 0
