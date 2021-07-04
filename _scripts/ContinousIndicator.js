@@ -23,8 +23,8 @@ ema3            = input(21, title="Trending EMA 3 Period")
 // ema34 > ema89 > ema200 + ema34 > ema34[1]
 // isUpTrend   = ema(close, ema1) > ema(close, ema2) and ema(close, ema2) > ema(close, ema3) and ema(close, ema1)[1] > ema(close, ema2)[1] and ema(close, ema1)[1] > ema(close, ema1)[2]
 // isDownTrend = ema(close, ema1) < ema(close, ema2) and ema(close, ema2) < ema(close, ema3) and ema(close, ema1)[1] < ema(close, ema2)[1] and ema(close, ema1)[1] < ema(close, ema1)[2]
-isUpTrend    = ema(close, ema1) > ema(close, ema2) and ema(close, ema2) > ema(close, ema3) and ema(close, ema1)[1] > ema(close, ema2)[1] and ema(close, ema1) > ema(close, ema1)[1] and ema(close, ema1)[1] > ema(close, ema1)[2]
-isDownTrend  = ema(close, ema1) < ema(close, ema2) and ema(close, ema2) < ema(close, ema3) and ema(close, ema1)[1] < ema(close, ema2)[1] and ema(close, ema1) < ema(close, ema1)[1] and ema(close, ema1)[1] < ema(close, ema1)[2]
+isUpTrend    = ema(close, ema1) > ema(close, ema2) and ema(close, ema2) > ema(close, ema3) and ema(close, ema1)[1] > ema(close, ema2)[1] and ema(close, ema1) > ema(close, ema1)[1] and ema(close, ema1)[1] > ema(close, ema1)[2] and ema(close, ema2) > ema(close, ema2)[1] and ema(close, ema2)[1] > ema(close, ema2)[2]
+isDownTrend  = ema(close, ema1) < ema(close, ema2) and ema(close, ema2) < ema(close, ema3) and ema(close, ema1)[1] < ema(close, ema2)[1] and ema(close, ema1) < ema(close, ema1)[1] and ema(close, ema1)[1] < ema(close, ema1)[2] and ema(close, ema2) < ema(close, ema2)[1] and ema(close, ema2)[1] < ema(close, ema2)[2] 
 isWithUpTrend = (not withTrending or isUpTrend)
 isWithDownTrend = (not withTrending or isDownTrend)
 
